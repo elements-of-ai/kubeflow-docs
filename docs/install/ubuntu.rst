@@ -9,6 +9,8 @@ This document will introduce you to all you need to know to get started with Cha
 To keep things simple, we are going to make the following assumptions:
 
 * You run Ubuntu 20.04 (focal) or later.
+* You have at least 32GB free memory and 50GB of disk space.
+* You have access to the internet for downloading the required snaps and charms.
 
 Create a Nimbus Ubuntu 20.04 VM
 ===============================
