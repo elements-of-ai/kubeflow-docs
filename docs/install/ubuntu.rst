@@ -18,11 +18,9 @@ Create a Nimbus Ubuntu 20.04 VM
 .. code-block:: shell
 
     # login DBC account to deloy ubuntu 20.04 vm on nimbus
-    # username/password: vmware/B1gd3m0z
+    # vm username/password: vmware/B1gd3m0z
     nimbus deploy ovf atlas-ubuntu-vm-3 http://sc-prd-rdops-templates.eng.vmware.com/nimbus-templates/atlas-ubuntu-20-4/atlas-ubuntu-20-04/atlas-ubuntu-20-04.ovf --cpus=16
 
-    # login this vm, and edit /etc/environment and remove proxy related env. vars, then reboot
- 
 
 Access Charmed Kubeflow
 =======================
@@ -33,11 +31,29 @@ Please note that this tutorial is dedicated to users who aim to install Charmed 
 Login Nimbus VM
 ---------------
 
-The journey of access Charmed Kubeflow will start from login Nimbus VM.
+The journey of access Charmed Kubeflow will start from login Nimbus VM. You need to change some configurations to deploy kubeflow better.
 
 .. code-block:: shell
 
-    ssh -D localhost:1080 vmware@<vm_ip>
+    # login this vm, and edit /etc/environment and remove proxy related env. vars, then reboot
+    ssh vmware@<vm_ip>
+    
+    cat /etc/environment
+    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+    #http_proxy="http://proxy.vmware.com:3128"
+    #HTTP_PROXY="http://proxy.vmware.com:3128"
+    #https_proxy="https://proxy.vmware.com:3128"
+    #HTTPS_PROXY="https://proxy.vmware.com:3128"
+    #ftp_proxy="ftp://proxy.vmware.com:3128"
+    #FTP_PROXY="ftp://proxy.vmware.com:3128"
+    no_proxy="localhost,127.0.0.1,.eng.vmware.com,.vmware.com"
+    NO_PROXY="localhost,127.0.0.1,.eng.vmware.com,.vmware.com"
+    LANGUAGE=en_US.UTF-8
+    LC_ALL=en_US.UTF-8
+    LANG=en_US.UTF-8
+    LC_CTYPE=en_US.UTF-8
+
+    sudo reboot
 
 
 Install and prepare MicroK8s
@@ -154,6 +170,8 @@ Login to Charmed Kubeflow
 
 Please note that if you are in a public cloud, follow `this guide <https://charmed-kubeflow.io/docs/dashboard>`_.
 The URL for the Kubeflow dashboard is the same as the one determined earlier for the configuration steps - in the case of a default MicroK8s install, it’s: http://10.64.140.43.nip.io
+
+Before access Kubeflow in browsers, please guarantee everything components is in "active" status.
 
 From a browser on your local machine, this can be reached just by copying and pasting the URL. You should then see the dex login screen, where you should enter the username( it does say email address, but whatever string you entered to configure it will work fine) and your password from the configuration step.
 
