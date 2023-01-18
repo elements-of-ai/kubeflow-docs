@@ -8,12 +8,11 @@ This tutorial will guide you through the integration of MLFlow with Kubeflow usi
 
 MLflow-Kubeflow integration requires a relation between MLflow and `MinIO <https://min.io/docs/minio/kubernetes/upstream/index.html>`_ operator, that you will learn more about in the guide. MinIO is used to store artifacts produced by MLflow runs (files, models, images, in-memory objects, model summary, etc). In the last section of this tutorial, you’ll learn how to access the artifact store using MinIO client or boto3 APIs.
 
-**Prerequisites:**
+Prerequisites
+=============
 
 * You have already installed Kubeflow on your cluster (full or lite version).
 * You can access the kubeflow dashboard.
-
-**Contents:**
 
 Get Started with MLFlow - Charmed Kubeflow integration
 ======================================================
@@ -23,7 +22,7 @@ Deploy mlflow-server and mlflow-db
 
 In an Ubuntu terminal window, run the following commands to deploy mlflow-server and mlflow-db.
 
-.. code-block::
+.. code-block:: shell
 
     juju deploy mlflow-server
     juju deploy charmed-osm-mariadb-k8s mlflow-db
@@ -36,7 +35,7 @@ Add the relations between components
 
 For mlflow-server to become active, You need to integrate applications that have been deployed with these commands:
 
-.. code-block::
+.. code-block:: shell
 
     juju relate minio mlflow-server
     juju relate istio-pilot mlflow-server
@@ -60,13 +59,14 @@ Otherwise, run ``microk8s kubectl get services -A | grep "mlflow-server"``, and 
 Run an example model with Kubeflow
 ==================================
 
+.. note::
     Temporary workaround for missing pod-defaults
     Run the following command to make a copy of pod defaults to the user’s namespace, which is admin following the guide.
     ``microk8s kubectl get poddefaults mlflow-server-minio -o yaml -n kubeflow | sed 's/namespace: kubeflow/namespace: admin/' | microk8s kubectl create -f -``
 
-Open the Kubeflow dashboard by going to ``http://10.64.140.43.nip.io/`` and log in with the username and password .
+Open the Kubeflow dashboard by going to `http://10.64.140.43.nip.io/ <http://10.64.140.43.nip.io/>`_ and log in with the username and password .
 
-`Create a new Notebook Server <https://charmed-kubeflow.io/docs/kubeflow-basics>`_, taking care to specify the mlflow-server-minio configuration, by ticking the box next to it. This will ensure that the correct environment variables are set so that the MLflow SDK can connect to the MLflow server.
+Create a new Notebook Server, taking care to specify the mlflow-server-minio configuration, by ticking the box next to it. This will ensure that the correct environment variables are set so that the MLflow SDK can connect to the MLflow server.
 
 .. image:: ../_static/user-guide-mlflow-config.png
 
@@ -80,11 +80,11 @@ Run the third cell to view a list of files in the object storage.
 
 .. image:: ../_static/user-guide-mlflow-notebook02.png
 
-In the last cell, replace <minio file path> with the path of the file you want to download. Use the object path listed in the output of the previous cell, and replace <notebook server file path> with the desired destination file for the downloaded object.
+In the last cell, replace ``<minio file path>`` with the path of the file you want to download. Use the object path listed in the output of the previous cell, and replace ``<notebook server file path>`` with the desired destination file for the downloaded object.
 
 For example to download requirements.txt listed in the above screenshot, run ``object_storage.download_file(default_bucket_name,'0/10e3bd4d7edd4b879b239a96cb300d48/artifacts/model/requirements.txt','requirements.txt')``
 
-The downloaded object will show up in the file browser on the left.    
+The downloaded object will show up in the file browser on the left.
 
 .. image:: ../_static/user-guide-mlflow-notebook03.png
 
@@ -103,7 +103,7 @@ To access the artifacts, you first need to get MinIO access and secret key for a
 
 * Find admission webhook unit’s name
 
-.. code-block::
+.. code-block:: shell
 
     juju status | grep admission-webhook/
 
@@ -111,13 +111,13 @@ To access the artifacts, you first need to get MinIO access and secret key for a
 
 * Run the command below to get minio envs
 
-.. code-block::
+.. code-block:: shell
 
     juju show-unit <admission webhook unit name> | yq .admission-webhook/*.relation-info[0].application-data
 
 The expected results will look similar to the one below, save your ``AWS_ACCESS_KEY_ID`` and ``AWS_SECRET_ACCESS_KEY`` as you will need them in the next part to use MinIO client.
 
-.. code-block::
+.. code-block:: shell 
 
     pod-defaults: '{"minio": {"env": {"AWS_ACCESS_KEY_ID": "some id", "AWS_SECRET_ACCESS_KEY": "some secret key", "MLFLOW_S3_ENDPOINT_URL": "http://minio.kubeflow:9000", "MLFLOW_TRACKING_URI": "http://mlflow-server.kubeflow.svc.cluster.local:5000"}}}'
 
@@ -131,19 +131,19 @@ Install MinIO client following the `official guide <https://min.io/docs/minio/li
 
 After that set alias for the MinIO.
 
-.. code-block::
+.. code-block:: shell
 
     mc alias set <alias> http://`juju status --format yaml | yq .applications.minio.units.minio/*.address`:9000 $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY
 
 List content in the default Mlflow bucket, this will show the files recorded by your MLflow run done in the previous section.
 
-.. code-block::
+.. code-block:: shell
 
     mc ls <alias>/mlflow
 
 Read the content of a specific file stored in MLFlow during a run.
 
-.. code-block::
+.. code-block:: shell
 
     mc cat <alias>/<path to file>
 
@@ -155,7 +155,7 @@ Boto3 is the AWS SDK for Python, it provides a Python API to interact with AWS s
 
 This code is also included in the `example notebook <https://github.com/canonical/mlflow-operator/blob/main/examples/elastic_net_wine_model.ipynb>`_.
 
-.. code-block::
+.. code-block:: python
 
     import boto3
 
@@ -169,13 +169,13 @@ Note: If you are accessing the bucket outside of a Kubeflow notebook server, rep
 
 Run this in the terminal to get the ip:
 
-.. code-block::
+.. code-block:: shell
 
     echo http://`juju status --format yaml | yq .applications.minio.units.minio/*.address`:9000
 
 To list of files in the default bucket mlflow:
 
-.. code-block::
+.. code-block:: python
 
     response = minio.list_objects_v2(Bucket="mlflow")
 
@@ -187,8 +187,11 @@ To list of files in the default bucket mlflow:
 
 To download a specific file:
 
-.. code-block::
+.. code-block:: python
 
     minio.download_file(default_bucket_name,'&lt;minio file path>', '&lt;notebook server file path>')
 
 For more information, see `Boto3 docs <https://boto3.amazonaws.com/v1/documentation/api/latest/index.html>`_.
+
+.. seealso::
+   `Integrate Charmed Kubeflow with MLFlow <https://discourse.charmhub.io/t/integrate-charmed-kubeflow-with-mlflow/7252>`_
