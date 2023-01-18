@@ -2,31 +2,22 @@
 Install Kubeflow on Nimbus
 ==========================
 
+.. note::
+   Note that the Kubeflow deployment on Nimbus only works for VMware internal use.
+
 This document will introduce you to all you need to know to get started with Charmed Kubeflow on Nimbus.
-
-**Prerequisites**:
-
-To keep things simple, we are going to make the following assumptions:
-
-* You run Ubuntu 20.04 (focal) or later.
-* You have at least 32GB free memory and 50GB of disk space.
-* You have access to the internet for downloading the required snaps and charms.
 
 Create a Nimbus Ubuntu 20.04 VM
 ===============================
 
 .. code-block:: shell
 
-    # login DBC account to deloy ubuntu 20.04 vm on nimbus
-    # vm username/password: vmware/B1gd3m0z
+    # login DBC server to deloy ubuntu 20.04 vm on nimbus
     nimbus deploy ovf atlas-ubuntu-vm-3 http://sc-prd-rdops-templates.eng.vmware.com/nimbus-templates/atlas-ubuntu-20-4/atlas-ubuntu-20-04/atlas-ubuntu-20-04.ovf --cpus=16
 
 
-Access Charmed Kubeflow
-=======================
-
-Please note that this tutorial is dedicated to users who aim to install Charmed Kubeflow on their own machine or on a virtual machine with direct access to the browser. In case you run it on a public cloud, the deployment process is the same, but please follow these `instructions <https://charmed-kubeflow.io/docs/dashboard>`_ for accessing the dashboard.
-
+Install Charmed Kubeflow
+========================
 
 Login Nimbus VM
 ---------------
@@ -36,23 +27,10 @@ The journey of access Charmed Kubeflow will start from login Nimbus VM. You need
 .. code-block:: shell
 
     # login this vm, and edit /etc/environment and remove proxy related env. vars, then reboot
+    # vm username/password: vmware/B1gd3m0z
     ssh vmware@<vm_ip>
-    
-    cat /etc/environment
-    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-    #http_proxy="http://proxy.vmware.com:3128"
-    #HTTP_PROXY="http://proxy.vmware.com:3128"
-    #https_proxy="https://proxy.vmware.com:3128"
-    #HTTPS_PROXY="https://proxy.vmware.com:3128"
-    #ftp_proxy="ftp://proxy.vmware.com:3128"
-    #FTP_PROXY="ftp://proxy.vmware.com:3128"
-    no_proxy="localhost,127.0.0.1,.eng.vmware.com,.vmware.com"
-    NO_PROXY="localhost,127.0.0.1,.eng.vmware.com,.vmware.com"
-    LANGUAGE=en_US.UTF-8
-    LC_ALL=en_US.UTF-8
-    LANG=en_US.UTF-8
-    LC_CTYPE=en_US.UTF-8
 
+    sudo sed -i '/proxy/Id' /etc/environment
     sudo reboot
 
 
@@ -61,7 +39,7 @@ Install and prepare MicroK8s
 
 The first step on our journey is to install `MicroK8s <https://microk8s.io/>`_. MicroK8s is installed from a snap package. The published snap maintains different channels for different releases of Kubernetes.
 
-.. code-block:: shell 
+.. code-block:: shell
 
     sudo snap install microk8s --classic --channel=1.24/stable
 
@@ -168,26 +146,23 @@ Feel free to use a different (more secure!) password if you wish.
 Login to Charmed Kubeflow
 -------------------------
 
-Please note that if you are in a public cloud, follow `this guide <https://charmed-kubeflow.io/docs/dashboard>`_.
 The URL for the Kubeflow dashboard is the same as the one determined earlier for the configuration steps - in the case of a default MicroK8s install, it’s: http://10.64.140.43.nip.io
 
 Before access Kubeflow in browsers, please guarantee everything components is in "active" status.
 
-From a browser on your local machine, this can be reached just by copying and pasting the URL. You should then see the dex login screen, where you should enter the username( it does say email address, but whatever string you entered to configure it will work fine) and your password from the configuration step.
-
-However, for remote deployments, or running on a virtual machine, creating a SOCKS proxy is required to access the dashboard. This can be done as follows:
+For remote deployment, which is our cases, creating a SOCKS proxy is required to access the dashboard. This can be done as follows:
 
 1. Connection to the machine using ssh with SOCKS proxy enabled through the -D 1080 parameter. As in the example below:
 
 .. code-block:: shell
 
-    ssh -D localhost:1080 vmware@<vm_machine_public_ip>
+    ssh -D localhost:1080 vmware@<vm_ip>
 
 2. Go to the browser on your computer, go to Settings > Network > Network Proxy, and enable SOCKS proxy pointing to: 127.0.0.1:1080. If it's firfox browser, the setting is as below:
 
 .. image:: ../_static/install-firfox-socket-setting.png
 
-If it's chrome browser, the setting is as below:
+If it's Chrome browser, the setting is as below:
 
 .. image:: ../_static/install-chrome-socket-setting.png
 
@@ -203,9 +178,6 @@ Once you click on the “Finish” button, the Dashboard will be displayed!
 
 .. image:: ../_static/install-dashboard.png
 
-
-Reference
-=========
 
 .. seealso::
 
