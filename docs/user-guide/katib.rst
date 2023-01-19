@@ -23,7 +23,7 @@ Katib experiments can be ran through Kubeflow UI.
 
 We first download an example to create a Katib experiment.
 
-.. code-block::
+.. code-block:: shell
 
     curl https://raw.githubusercontent.com/kubeflow/katib/master/examples/v1beta1/hp-tuning/grid.yaml > grid-example.yaml
 
@@ -33,19 +33,19 @@ make sure to change that in ``grid-example.yaml``.
 As istio sidecar is incompatible with Katib experiments, we disable it using ``yq``. For ``yq`` installation, please refer to 
 `this github page <https://github.com/mikefarah/yq/#install>`_ .
 
-.. code-block::
+.. code-block:: shell
 
     yq -i '.spec.trialTemplate.trialSpec.spec.template.metadata.annotations."sidecar.istio.io/inject" = "false"' grid-example.yaml
 
 And we are now ready to apply the YAML file to start our experiments.
 
-.. code-block::
+.. code-block:: shell
 
     kubectl apply -f grid-example.yaml
 
 Katib experiments would then start to run. We can inspect experiment progress using ``kubectl`` by running the following command:
 
-.. code-block::
+.. code-block:: shell
 
     kubectl -n kubeflow get experiment grid-example -o yaml
 
@@ -54,7 +54,9 @@ Run Katib experiments from Kubeflow UI
 
 We can also use the Kubeflow UI to run Katib experiments. 
 
-Again, we first save following contents as ``grid-example.yaml`` which would be used to generate Katib experiment.::
+Again, we first save following contents as ``grid-example.yaml`` which would be used to generate Katib experiment.
+
+.. code-block:: yaml
 
     ---
     apiVersion: kubeflow.org/v1beta1
@@ -158,6 +160,11 @@ and the optimal metrics.
 
     .. image:: ../_static/user-guide-katib-result.png
 
-**Note:** the experiment may take some time to finish, maybe from 30 minutes to about 2 hours.
+.. note:: 
+    the experiment may take some time to finish, maybe from 30 minutes to about 2 hours.
+
+.. seealso::
+
+    `Get started with Charmed Kubeflow <https://charmed-kubeflow.io/docs/get-started-with-charmed-kubeflow>`_
 
 
