@@ -20,20 +20,20 @@ Get Started with MLFlow - Charmed Kubeflow integration
 Deploy mlflow-server and mlflow-db
 ----------------------------------
 
-In an Ubuntu terminal window, run the following commands to deploy mlflow-server and mlflow-db.
+In an Ubuntu terminal window, run the following commands to deploy ``mlflow-server`` and ``mlflow-db``.
 
 .. code-block:: shell
 
     juju deploy mlflow-server
     juju deploy charmed-osm-mariadb-k8s mlflow-db
 
-Run ``watch juju status`` to watch the application status of mlflow-db become active and mlflow-server to be waiting for mysql relation data. This takes about a minute.
+Run ``watch juju status`` to watch the application status of ``mlflow-db`` become active and ``mlflow-server`` to be waiting for ``mysql`` relation data. This takes about a minute.
 
 
 Add the relations between components
 ------------------------------------
 
-For mlflow-server to become active, You need to integrate applications that have been deployed with these commands:
+For ``mlflow-server`` to become active, you need to integrate applications that have been deployed with these commands:
 
 .. code-block:: shell
 
@@ -43,7 +43,7 @@ For mlflow-server to become active, You need to integrate applications that have
     juju relate mlflow-server admission-webhook
 
 
-run ``watch juju status --relations``, this shows the relations you created. Relations are created almost immediately, you should then wait a few minutes for the mlflow-server unit to have active status so you can access the dashboard next.
+Run ``watch juju status --relations`` to see the relations you created. Relations are created almost immediately. You should then wait a few minutes for the ``mlflow-server`` unit to have active status so you can access the dashboard next.
 
 
 Access the Dashboard
@@ -51,7 +51,7 @@ Access the Dashboard
 
 If you followed the previous steps to deploy MLFlow with Kubeflow, you could access the dashboard by going to `http://10.64.140.43.nip.io/mlflow/#/ <http://10.64.140.43.nip.io/mlflow/#/>`_
 
-Otherwise, run ``microk8s kubectl get services -A | grep "mlflow-server"``, and open the mlflow ClusterIP in the browser with :5000 on the end.
+Otherwise, run ``microk8s kubectl get services -A | grep "mlflow-server"``, and open the MLFlow ClusterIP in the browser with ``:5000`` on the end.
 
 .. image:: ../_static/user-guide-mlflow-dashboard.png
 
@@ -60,17 +60,17 @@ Run an example model with Kubeflow
 ==================================
 
 .. note::
-    Temporary workaround for missing pod-defaults
-    Run the following command to make a copy of pod defaults to the user’s namespace, which is admin following the guide.
+    **Temporary workaround for missing pod-defaults**
+    Run the following command to make a copy of pod defaults to the user’s namespace, which is ``admin`` following the guide.
     ``microk8s kubectl get poddefaults mlflow-server-minio -o yaml -n kubeflow | sed 's/namespace: kubeflow/namespace: admin/' | microk8s kubectl create -f -``
 
 Open the Kubeflow dashboard by going to `http://10.64.140.43.nip.io/ <http://10.64.140.43.nip.io/>`_ and log in with the username and password .
 
-Create a new Notebook Server, taking care to specify the mlflow-server-minio configuration, by ticking the box next to it. This will ensure that the correct environment variables are set so that the MLflow SDK can connect to the MLflow server.
+Create a new Notebook Server, taking care to specify the ``mlflow-server-minio`` configuration, by ticking the box next to it. This will ensure that the correct environment variables are set so that the MLflow SDK can connect to the MLflow server.
 
 .. image:: ../_static/user-guide-mlflow-config.png
 
-For an example code, upload or paste the `Elastic Net wine model notebook <https://github.com/canonical/mlflow-operator/blob/main/examples/elastic_net_wine_model.ipynb>`_ to the notebook server.
+For an example code, upload or paste the `Elastic Net wine model notebook <https://github.com/canonical/mlflow-operator/blob/main/examples/elastic_net_wine_model.ipynb>`_ to the Notebook server.
 
 Run the first two cells and observe that your model metrics are recorded in MLflow as shown in the cell output below. You can see the RMSE, MAE, and R2 for the run model.
 
@@ -82,7 +82,7 @@ Run the third cell to view a list of files in the object storage.
 
 In the last cell, replace ``<minio file path>`` with the path of the file you want to download. Use the object path listed in the output of the previous cell, and replace ``<notebook server file path>`` with the desired destination file for the downloaded object.
 
-For example to download requirements.txt listed in the above screenshot, run ``object_storage.download_file(default_bucket_name,'0/10e3bd4d7edd4b879b239a96cb300d48/artifacts/model/requirements.txt','requirements.txt')``
+For example, to download ``requirements.txt`` listed in the above screenshot, run ``object_storage.download_file(default_bucket_name,'0/10e3bd4d7edd4b879b239a96cb300d48/artifacts/model/requirements.txt','requirements.txt')``
 
 The downloaded object will show up in the file browser on the left.
 
@@ -92,7 +92,7 @@ The downloaded object will show up in the file browser on the left.
 Access Artifacts
 ================
 
-Based on the setup in the Get Started section, Artifacts are stored in MinIO. Artifacts include output files recorded by MLflow runs in any format such as models, data files, and images.
+Based on the setup in the Get Started section, artifacts are stored in MinIO. Artifacts include output files recorded by MLflow runs in any format such as models, data files, and images.
 
 You could access the artifacts using the MinIO client or boto3 with python.
 
@@ -109,19 +109,21 @@ To access the artifacts, you first need to get MinIO access and secret key for a
 
 * copy the unit’s name to use it in the next command
 
-* Run the command below to get minio envs
+* Run the command below to get MinIO ``envs``
 
 .. code-block:: shell
 
     juju show-unit <admission webhook unit name> | yq .admission-webhook/*.relation-info[0].application-data
 
-The expected results will look similar to the one below, save your ``AWS_ACCESS_KEY_ID`` and ``AWS_SECRET_ACCESS_KEY`` as you will need them in the next part to use MinIO client.
+The expected results will look similar to the one below. Save your ``AWS_ACCESS_KEY_ID`` and ``AWS_SECRET_ACCESS_KEY`` as you will need them in the next part to use MinIO client.
 
 .. code-block:: shell 
 
     pod-defaults: '{"minio": {"env": {"AWS_ACCESS_KEY_ID": "some id", "AWS_SECRET_ACCESS_KEY": "some secret key", "MLFLOW_S3_ENDPOINT_URL": "http://minio.kubeflow:9000", "MLFLOW_TRACKING_URI": "http://mlflow-server.kubeflow.svc.cluster.local:5000"}}}'
 
-Note The environment variables would be the same even if MinIO is not on AWS, it’s based on MinIO’s configuration not the cloud provider.
+.. note::
+    
+    The environment variables would be the same even if MinIO is not on AWS, it’s based on MinIO’s configuration not the cloud provider.
 
 
 MinIO client
@@ -135,13 +137,13 @@ After that set alias for the MinIO.
 
     mc alias set <alias> http://`juju status --format yaml | yq .applications.minio.units.minio/*.address`:9000 $AWS_ACCESS_KEY_ID $AWS_SECRET_ACCESS_KEY
 
-List content in the default Mlflow bucket, this will show the files recorded by your MLflow run done in the previous section.
+* List content in the default Mlflow bucket. This will show the files recorded by your MLflow run done in the previous section.
 
 .. code-block:: shell
 
     mc ls <alias>/mlflow
 
-Read the content of a specific file stored in MLFlow during a run.
+* Read the content of a specific file stored in MLFlow during a run.
 
 .. code-block:: shell
 
@@ -151,7 +153,7 @@ Read the content of a specific file stored in MLFlow during a run.
 Boto3
 -----
 
-Boto3 is the AWS SDK for Python, it provides a Python API to interact with AWS services.
+Boto3 is the AWS SDK for Python. It provides a Python API to interact with AWS services.
 
 This code is also included in the `example notebook <https://github.com/canonical/mlflow-operator/blob/main/examples/elastic_net_wine_model.ipynb>`_.
 
@@ -165,15 +167,17 @@ This code is also included in the `example notebook <https://github.com/canonica
             config=boto3.session.Config(signature_version="s3v4"),
         )
 
-Note: If you are accessing the bucket outside of a Kubeflow notebook server, replace the os env with MinIOunit’s ip with ``:9000`` at the end.
+.. note::
+    
+    If you are accessing the bucket outside of a Kubeflow Notebook server, replace the os ``env`` with ``MinIOunit`` IP, with ``:9000`` at the end.
 
-Run this in the terminal to get the ip:
+Run this in the terminal to get the IP:
 
 .. code-block:: shell
 
     echo http://`juju status --format yaml | yq .applications.minio.units.minio/*.address`:9000
 
-To list of files in the default bucket mlflow:
+To list files in the default bucket ``mlflow``:
 
 .. code-block:: python
 
