@@ -22,7 +22,7 @@ Install Charmed Kubeflow
 Login Nimbus VM
 ---------------
 
-The journey of access Charmed Kubeflow will start from login Nimbus VM. You need to change some configurations to deploy kubeflow better.
+The journey of accessing Charmed Kubeflow starts from login Nimbus VM. You need to change some configurations before deploying Kubeflow.
 
 .. code-block:: shell
 
@@ -37,20 +37,20 @@ The journey of access Charmed Kubeflow will start from login Nimbus VM. You need
 Install and prepare MicroK8s
 ----------------------------
 
-The first step on our journey is to install `MicroK8s <https://microk8s.io/>`_. MicroK8s is installed from a snap package. The published snap maintains different channels for different releases of Kubernetes.
+The first step on our journey is to install `MicroK8s <https://microk8s.io/>`_. MicroK8s is installed from a snap package. The published snap maintains different ``channels`` for different releases of Kubernetes.
 
 .. code-block:: shell
 
     sudo snap install microk8s --classic --channel=1.24/stable
 
-For MicroK8s to work without having to use sudo for every command, it creates a group called microk8s. To make it more convenient to run commands, you will add the current user to this group:
+For MicroK8s to work without having to use ``sudo`` for every command, it creates a group called ``microk8s``. To make it more convenient to run commands, you will add the current user to this group:
 
 .. code-block:: shell
 
     sudo usermod -a -G microk8s $USER
     newgrp microk8s
 
-It is also useful to make sure the user has the proper access and ownership of any kubectl configuration files:
+It is also useful to make sure the user has the proper access and ownership of any ``kubectl`` configuration files:
 
 .. code-block:: shell
 
@@ -64,7 +64,7 @@ MicroK8s will start up as soon as it is installed. It is a completely functional
 
 You can see that we added some detail when enabling MetalLB, in this case the address pool to use. Many of the add-ons have extra configuration options, which can be found in the `MicroK8s documentation <https://microk8s.io/docs/addon-metallb>`_.
 
-It will take minimum 5 minutes for MicroK8s to install and set up these additional features. Before we do anything else, we should check that the add-ons have been enabled successfully and that MicroK8s is ready for action. We can do this by requesting the status, and supplying the --wait-ready option, which tells microk8s to finish whatever processes it is working on before returning:
+It will take minimum 5 minutes for MicroK8s to install and set up these additional features. Before we do anything else, we should check that the add-ons have been enabled successfully and that MicroK8s is ready for action. We can do this by requesting the status, and supplying the ``--wait-ready`` option, which tells microk8s to finish whatever processes it is working on before returning:
 
 .. code-block:: shell
 
@@ -146,23 +146,23 @@ Feel free to use a different (more secure!) password if you wish.
 Login to Charmed Kubeflow
 -------------------------
 
-The URL for the Kubeflow dashboard is the same as the one determined earlier for the configuration steps - in the case of a default MicroK8s install, it’s: http://10.64.140.43.nip.io
+The URL for the Kubeflow dashboard is the same as the one determined earlier for the configuration steps - in the case of a default MicroK8s install, it’s: ``http://10.64.140.43.nip.io``
 
-Before access Kubeflow in browsers, please guarantee everything components is in "active" status.
+Before accessing Kubeflow in browsers, please guarantee every component is in "active" status.
 
 For remote deployment, which is our cases, creating a SOCKS proxy is required to access the dashboard. This can be done as follows:
 
-1. Connection to the machine using ssh with SOCKS proxy enabled through the -D 1080 parameter. As in the example below:
+1. Connect to the vm with SOCKs proxy enabled.
 
 .. code-block:: shell
 
     ssh -D localhost:1080 vmware@<vm_ip>
 
-2. Go to the browser on your computer, go to Settings > Network > Network Proxy, and enable SOCKS proxy pointing to: 127.0.0.1:1080. If it's firfox browser, the setting is as below:
+2. Go to the browser on your computer. Go to Settings > Network > Network Proxy, and enable SOCKS5 proxy pointing to: 127.0.0.1:1080. If you are using firefox, the setting is as below:
 
 .. image:: ../_static/install-firfox-socket-setting.png
 
-If it's Chrome browser, the setting is as below:
+If you are using Chrome, the setting is as below:
 
 .. image:: ../_static/install-chrome-socket-setting.png
 
