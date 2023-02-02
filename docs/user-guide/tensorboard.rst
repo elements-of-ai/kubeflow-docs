@@ -22,7 +22,7 @@ Configure and run
 -----------------
 
 You can go through the example notebook to have a better idea about what this example is working on. Note that the ``log_dir`` path 
-is imnportant - this location will be needed for Tensorboad creation.
+is important - this location will be needed for Tensorboad creation.
 
     .. image:: ../_static/user-guide-tensorboard-logDir.png
 
