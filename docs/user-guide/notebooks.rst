@@ -86,7 +86,7 @@ These images provide a common starting point for Kubeflow notebook containers.
    * - `jupyter <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/jupyter>`_
      - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter:{TAG}
      - base JupyterLab image
-   * - `rstudio <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/rstudio>`_
+   * - `rstudio <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/rstudio>`__
      - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/rstudio:{TAG}
      - base RStudio image
 
@@ -112,10 +112,10 @@ These images extend the base images with common packages used by Data Scientists
      - JupyterLab + PyTorch (CUDA)
    * - `jupyter-pytorch-full (CPU) <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/jupyter-pytorch-full>`_
      - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-pytorch-full:{TAG}
-     - JupyterLab + PyTorch (CPU) + `common <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/jupyter-pytorch-full/requirements.txt>`_ packages
+     - JupyterLab + PyTorch (CPU)  `common <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/jupyter-pytorch-full/requirements.txt>`__ packages
    * - `jupyter-pytorch-full (CUDA) <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/jupyter-pytorch-full>`_
      - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-pytorch-cuda-full:{TAG}
-     - JupyterLab + PyTorch (CUDA) + `common <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/jupyter-pytorch-full/requirements.txt>`_ packages
+     - JupyterLab + PyTorch (CUDA) + `common <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/jupyter-pytorch-full/requirements.txt>`__ packages
    * - `jupyter-scipy <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/jupyter-scipy>`_
      - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-scipy:{TAG}
      - JupyterLab + `SciPy <https://scipy.org/>`_ packages
@@ -131,7 +131,7 @@ These images extend the base images with common packages used by Data Scientists
    * - `jupyter-tensorflow-full (CUDA) <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/jupyter-tensorflow-full>`_
      - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-tensorflow-cuda-full:{TAG}
      - JupyterLab + TensorFlow (CUDA) + `common <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/jupyter-tensorflow-full/requirements.txt>`_ packages
-   * - `rstudio-tidyverse <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/rstudio-tidyverse>`_
+   * - `rstudio-tidyverse <https://github.com/kubeflow/kubeflow/tree/master/components/example-notebook-servers/rstudio-tidyverse>`__
      - public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/rstudio-tidyverse:{TAG}
      - RStudio + `Tidyverse <https://www.tidyverse.org/>`_ packages
 
@@ -162,7 +162,7 @@ Python Packages
 Extend one of the base images and install any ``pip`` or ``conda`` packages your Kubeflow Notebook users are likely to need.
 
 As a guide, look at `jupyter-pytorch-full.cpu <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/jupyter-pytorch-full/cpu.Dockerfile>`_ 
-for a ``pip install ...`` example, and the `rstudio-tidyverse <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/rstudio-tidyverse/Dockerfile>`_ 
+for a ``pip install ...`` example, and the `rstudio-tidyverse <https://github.com/kubeflow/kubeflow/blob/master/components/example-notebook-servers/rstudio-tidyverse/Dockerfile>`__
 for ``conda install ...``.
 
 Linux Packages
