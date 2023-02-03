@@ -10,7 +10,7 @@ For wine lovers, we use a wine dataset. We want to predict the wine’s quality 
 Set up your environment
 =======================
 
-Grab the `code samples <https://github.com/Barteus/kubeflow-examples/tree/0.2/e2e-wine-kfp-mlflow>`_ and let’s execute them together in order to get the most out of this document. You’ll need a working Kubeflow deployment with MLFLow up and running. For detailed installation instructions, take a look from `Charmed Kubeflow document <https://charmed-kubeflow.io/docs/install>`_ and from `MLFlow document <https://charmed-kubeflow.io/docs/mlflow>`_.
+Grab the `code samples <https://github.com/Barteus/kubeflow-examples/tree/0.2/e2e-wine-kfp-mlflow>`_ and let’s execute them together in order to get the most out of this document. You’ll need a working Kubeflow deployment with MLFLow up and running.
 
 During the journey through the pipeline, each step will show us something new. Let’s go!
 
@@ -90,7 +90,7 @@ The first step is one of the most frequently performed actions. We want to downl
 
 Whenever you need to add a step to the pipeline, first check if it doesn’t already exist in the Kubeflow Pipeline components registry. This way adding a new step to the pipeline is simple – you can either load it from the URL or download and load it from a local file.
 
-.. code-block:: shell
+.. code-block:: python
 
    web_downloader_op = kfp.components.load_component_from_url('https://raw.githubusercontent.com/kubeflow/pipelines/master/components/contrib/web/Download/component.yaml')
 
@@ -103,7 +103,7 @@ Preprocess our ML source data
 
 For the preprocessing step we need a different approach. Each data preprocessing step is different, so we likely won’t find what we need in the KFP components registry. During the experiment phase, preprocessing is usually done in a jupyter notebook. So we will wrap this code into a Python function so that we can convert it into a component. It’s important to notice that pandas import is inside the Python function because the library needs to be imported inside the Docker container that will eventually be running the step.
 
-.. code-block:: shell
+.. code-block:: python
 
    from kfp.components import InputPath, OutputPath
 
@@ -115,7 +115,7 @@ For the preprocessing step we need a different approach. Each data preprocessing
 
 We have a function. We can write tests for it if we want, to be sure it works correctly. Now we’ll wrap it into the container so the Kubernetes platform underneath Kubeflow will know how to invoke our code. We’ll use the Docker image for Python 3.9 and install additional python packages using Python’s pip package manager.
 
-.. code-block:: shell
+.. code-block:: python
 
    preprocess_op = kfp.components.create_component_from_func(
       func=preprocess,
@@ -130,7 +130,7 @@ Train our ML predictive model
 
 This preprocessing step is created using a function-based component too. The difference in this step is that we need to make calls to MLFlow and Minio – and these calls require setting some environment variables. How to securely handle setting up the environment variables is something we will discuss later in this document. Additionally, we’ll change the training code, so that all of the information about the experiment will be saved in MLFLow and the ML model artefact that this step generates will be stored in Minio.
 
-.. code-block:: shell
+.. code-block:: python
 
    from kfp.components import InputPath
 
@@ -143,7 +143,7 @@ This preprocessing step is created using a function-based component too. The dif
       df = pd.read_parquet(file_path)
       target_column = 'quality'
       train_x, test_x, train_y, test_y = train_test_split(
-         df.drop(columns=[target_column]), 
+         df.drop(columns=[target_column]),
          df[target_column])
 
       with mlflow.start_run(run_name='wine_models'):
@@ -155,7 +155,7 @@ This preprocessing step is created using a function-based component too. The dif
 
 The value returned from the step is the model URI – the path to the model file in Minio. But if you need to return more than a single value, you can use a NamedTuple. For more details take a look `here <https://www.kubeflow.org/docs/components/pipelines/sdk/python-function-components/#building-python-function-based-components>`__.
 
-.. code-block:: shell
+.. code-block:: python
 
    training_op = kfp.components.create_component_from_func(
       func=train,
@@ -181,7 +181,7 @@ Create the command-line application
 
 First, we create a command-line application, which calls “kubectl” with a file generated from a Jinja template as a parameter.
 
-.. code-block:: shell
+.. code-block:: python
 
    import argparse
    import subprocess
@@ -208,9 +208,9 @@ Build and push the Docker image
 
 Next, we use Docker to build and push an image to the Docker image registry. The Dockerfile can be found here and the build script is below.
 
-.. code-block:: shell
+.. code-block:: dockerfile
 
-   #building script
+   # building script
    VERSION=<version>
    REPO=<repository>
    docker build . -t $REPO:$VERSION
@@ -245,7 +245,7 @@ Load our component
 
 Finally, we’ll load the components in a similar way to the “Download data” step. We use the configuration file we created in the third step to specify which Docker image is used, how it is to be invoked and what the input and output parameters are.
 
-.. code-block:: shell
+.. code-block:: python
 
    deploy_op = kfp.components.load_component_from_file(
       os.path.join('components', 'deploy', 'component.yaml'))
@@ -260,7 +260,7 @@ Put the MLOps pipeline together
 
 We’ve defined all the components – now let’s create a pipeline from them. We need to put them in the proper order, define inputs and outputs and add appropriate configuration values.
 
-.. code-block:: shell
+.. code-block:: python
 
    @dsl.pipeline(
    name="e2e_wine_pipeline",
