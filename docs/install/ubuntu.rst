@@ -1,3 +1,5 @@
+.. _install-ubuntu:
+
 ==========================
 Install Kubeflow on Nimbus
 ==========================
