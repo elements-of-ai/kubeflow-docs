@@ -70,7 +70,7 @@ Setup environment
 
 To setup environment, add the following cells to the newly created Jupyter notebook:
 
-.. code-block:: python
+.. code-block:: text
 
     !pip install kfp==1.8.12
     !pip install kubeflow-katib==0.13.0
@@ -527,6 +527,7 @@ Execute pipeline
 Execute the pipeline using following code:
 
 .. code-block:: python
+
     kfp_client = Client()
     run_id = kfp_client.create_run_from_pipeline_func(
             demo_pipeline,
