@@ -1,3 +1,5 @@
+.. _kubeflow_pipelines:
+
 ==================
 Kubeflow Pipelines
 ==================
