@@ -53,6 +53,7 @@ Docs
 
     user-guide/index
     user-guide/notebooks
+    user-guide/feast
     user-guide/spark
     user-guide/mlmd
     user-guide/mlflow
