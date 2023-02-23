@@ -34,6 +34,7 @@ Before deployment, make sure following prerequisites are fulfilled:
 
 * ``kubectl`` CLI installed. You may follow `the Kubernetes documentation <https://kubernetes.io/docs/tasks/tools/#kubectl>`__, or follow our doc :ref:`install-ubuntu`.
 * Helm v3.3.1 or later installed. You may refer `the Helm documentation <https://helm.sh/docs/intro/install/>`__.
+* Docker installed. You may refer `Docer official documentation <https://docs.docker.com/engine/install/>`__, or directly run ``sudo snap install docker`` if you have followed our doc :ref:`install-ubuntu` to deploy Kubernetes cluster.
 * (Optional) An external, production-ready PostgreSQL instance setup. This is optional, as the GitLab chart we would use in this guide already includes an in-cluster PostgreSQL deployment that is provided by `bitnami/PostgreSQL <https://artifacthub.io/packages/helm/bitnami/postgresql>`__ by default. This deployment, however, is for trial purposes only and not recommended for use in production.
 * (Optional) An external, production-ready Redis instance setup. This is optional, as the GitLab chart we would use in this guide already includes an in-cluster Redis deployment that is provided by `bitnami/Redis <https://artifacthub.io/packages/helm/bitnami/redis>`__ by default. This deployment, however, is for trial purposes only and not recommended for use in production.
 
@@ -81,12 +82,12 @@ In this guide, we deploy Gitlab using following command:
 
 .. code-block:: shell
 
-    helm upgrade --install gitlab gitlab/gitlab
-      --timeout 600s
-      --set global.hosts.externalIP=<your_ingress_externalIP>
-      --set global.hosts.domain=<your_ingress_externalIP>.nip.io
-      --set certmanager-issuer.email=admin@example.com
-      --set global.time_zone=<timezone_that_is_consistent_with_your_machine>
+    helm upgrade --install gitlab gitlab/gitlab --create-namespace --namespace=gitlab \
+      --timeout 600s \
+      --set global.hosts.externalIP=<your_ingress_externalIP> \
+      --set global.hosts.domain=<your_ingress_externalIP>.nip.io \
+      --set certmanager-issuer.email=admin@example.com \
+      --set global.time_zone=<timezone_that_is_consistent_with_your_machine> \
       --set postgresql.image.tag=13.6.0
 
 Note the following:
@@ -94,12 +95,24 @@ Note the following:
 * All Helm commands are specified using Helm v3 syntax.
 * Helm v3 requires that the release name be specified as a positional argument on the command line unless the ``--generate-name`` option is used.
 * Helm v3 requires one to specify a duration with a unit appended to the value (e.g. ``120s`` = ``2m`` and ``210s`` = ``3m30s``). The ``--timeout`` option is handled as the number of seconds without the unit specification.
-* You need to use a valid external IP (in a valid range) for field ``global.hosts.externalIP`` and ``global.hosts.domain``. These two fields are all required. (You may check ``svc`` and ``ingress`` using ``[microk8s] kubectl`` to get a valid range for the external IP. In my case, it is ``10.64.140.46``.)
+* You need to use a valid external IP (in a valid range) for field ``global.hosts.externalIP`` and ``global.hosts.domain``. These two fields are all required. (You may check ``svc`` and ``ingress`` using ``[microk8s] kubectl`` to get a valid range for the external IP. And make sure the ingress external IP for your Gitlab has not been used by other deployed apps. In my case, it is ``10.64.140.46``.)
 * ``certmanager-issuer.email`` field is required and it is used for root user login. You may customize the value.
 * ``global.time_zone`` is not required and it has a default value ``UTC``. It is mandatory that you make sure your deployed Gitlab time zone is consistent with the time zone of your machine. Otherwise, there may be a cookie issue which would cause ``422`` error code in later web UI accessing. (You may use ``date`` command to check your machine's time zone.)
 * You can also use ``--version <installation version>`` option if you would like to install a specific version of GitLab.
 * Above command enables you to deploy **enterprise** version. If you would like to deploy a **community** version, add ``--set global.edition=ce``.
-* In this guide, all related ``pods``, ``svc``, ``deployment``, ``ingress`` would be in ``default`` namespace. You may customize it.
+* In this guide, all related ``pods``, ``svc``, ``deployment``, ``ingress`` would be in ``gitlab`` namespace. You may customize it.
+* And example of above command ``helm upgrade --install gitlab gitlab/gitlab --create-namespace --namespace=gitlab  --timeout 600s  --set global.hosts.externalIP=10.64.140.46  --set global.hosts.domain=10.64.140.46.nip.io   --set certmanager-issuer.email=admin@example.com    --set global.time_zone=UTC  --set postgresql.image.tag=13.6.0``.
+
+.. note::
+    If you have problems with configuring external IP and if you have followed our guide :ref:`install-ubuntu`, you may 
+    try following procedures.
+
+    1. Check your step of setting DNS service in :ref:`install-ubuntu`. We have guided you to use command 
+    ``microk8s enable dns storage ingress metallb:10.64.140.43-10.64.140.49``. And in that case, ``10.64.140.43-10.64.140.49`` would 
+    be the valid range of your deployed apps' external IP.
+
+    2. Pick one in above range, such as ``10.64.140.46``. Make sure your chosen IP has not been used by other deployed apps.
+
 
 ^^^^^^^^^^^^^^^^^^^^^^
 Monitor the deployment
@@ -142,14 +155,16 @@ created a random password for root user. This can be extracted by the following 
 
 .. code-block:: shell
 
-    kubectl get secret <name_of_release>-gitlab-initial-root-password -n <namespace> -ojsonpath='{.data.password}' | base64 --decode ; echo
+    kubectl get secret <name_of_release>-gitlab-initial-root-password -n gitlab -ojsonpath='{.data.password}' | base64 --decode ; echo
 
-If you use above commands, the ``<name_of_release>`` would be ``gitlab``, and the ``<namespace>`` would be ``default``.
+If you use above commands, the ``<name_of_release>`` would be ``gitlab``. And if you did not use namespace ``gitlab``, remember to change it in above command.
+
+An example would be ``kubectl get secret gitlab-gitlab-initial-root-password -n gitlab -ojsonpath='{.data.password}' | base64 --decode ; echo``.
 
 Copy the password.
 
-Open you browswer, and go to the Gitlab web UI using the ``domain`` we set above ``https://gitlab.<domain>:<port_for_https>``, i.e. 
-``https://gitlab.<your_ingress_externalIP>.nip.io:<port_for_https>``. (In my case, it is ``https://gitlab.10.64.140.46.nip.io:443/``.)
+Open you browswer, and go to the Gitlab web UI using the ``domain`` we set above ``https://gitlab.<domain>``, i.e. 
+``https://gitlab.<your_ingress_externalIP>.nip.io``. (For example, ``https://gitlab.10.64.140.46.nip.io``.)
 
 And you should see following login page:
 
@@ -162,20 +177,51 @@ Click "Sign in", and you should be located to home page:
 
 .. image:: ../_static/integration-gitlab-home.png
 
----------------
-Troubleshooting
----------------
+^^^^^^^^^^^^^^^^
+Uninstall Gitlab
+^^^^^^^^^^^^^^^^
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+To uninstall Gitlab, run following command:
+
+.. code-block:: shell
+
+    helm uninstall gitlab -n gitlab
+
+^^^^^^^^^^^^^^^
+Troubleshooting
+^^^^^^^^^^^^^^^
+
+"""""""""""""""""""""""""""""""""""""
 422 error code on web UI after login
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""
 
 After clicking "Sign in", instead of being guided to Gitlab home page, one sees ``422 The change you requested was rejected`` error. Below 
 are some possible reasons:
 
 * Time zone and clock of your deployed Gitlab is inconsistent with your machine (local or virtual machine, depending on which one you have used to deploy Gitlab). This would cause some cookie problems. Check your machine's time zone (using ``date`` command, for example), and use ``--set global.time_zone=<your_machine_timezone>`` in ``helm install`` step.
 * Cookie issues. Clear your browser's cookies.
-* External IP is not set properly. Run ``[microk8s] kubectl get svc -n default`` to make sure the ingress controller has a valid external IP allocated. And make sure the external IP is in a valid range.
-* Double check if you are using ``https`` and corresponding port (``443`` in most cases).
-* Change the domain. In some tutorials, you may see domain ``example.com``, ``xip.io``, etc. It may depend on your environment and network configurations. In my case, the working version is ``<externalIP>.nip.io``. And to access Gitlab on web UI, the one to be used would be ``https://gitlab.<externalIP>.nip.io:443``.
+* External IP is not set properly. 
+    * Run ``[microk8s] kubectl get svc -n default`` to make sure the Gitlab ingress controller has a valid external IP allocated. If its external IP is in "pending" status, you should use ``[microk8s] kubectl logs``, ``describe``, or ``get -o yaml`` to see if there is any problem in IP allocation.
+    * The external IP you configured for Gitlab may not be in the valid range.
+    * The external IP you configured for Gitlab may have already been used by other deployed apps.
+* ``http`` and ``https`` issues. You should use ``https`` instead of ``https``.
+* Domain issues. In some tutorials, you may see domain ``example.com``, ``xip.io``, etc. It may depend on your environment and network configurations. In my case, the working version is ``<externalIP>.nip.io``. And to access Gitlab on web UI, the one to be used would be ``https://gitlab.<externalIP>.nip.io:443``.
+
+""""""""""""""""""""""""""""""
+Kubernetes cluster unreachable
+""""""""""""""""""""""""""""""
+
+You may encounter following error after running ``helm install``:
+
+.. code-block:: shell
+
+    Error: Kubernetes cluster unreachable: Get "http://localhost:8080/version?timeout=32s": dial tcp 127.0.0.1:8080: connect: connection refused
+
+If this is your case, first run command:
+
+.. code-block:: shell
+
+    [microk8s] kubectl config view --raw > ~/.kube/config
+
+And then redo the ``helm install`` command.
 
