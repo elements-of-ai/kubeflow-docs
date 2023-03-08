@@ -12,7 +12,7 @@ This document will introduce you to all you need to know to get started with Cha
 Create a Nimbus Ubuntu 20.04 VM
 ===============================
 
-Use following command to deploy a Ubuntu 20.04 vm on Nimbus using the provided template. The default **username/password** is 
+Use following command to deploy a Ubuntu 20.04 vm on Nimbus using the provided template. The default **username/password** is
 ``vmware/B1gd3m0z``.
 
 .. code-block:: shell
@@ -32,16 +32,12 @@ The journey of accessing Charmed Kubeflow starts from login Nimbus VM. You need 
 First, login the deployed vm. (The default **username/password** is ``vmware/B1gd3m0z``.) Edit ``/etc/environment`` file.
 
 .. code-block:: shell
-    
-    # assume using default usernamd and password
+
+    # default password B1gd3m0z
     ssh vmware@<vm_ip>
-    # enter password B1gd3m0z
 
-    sudo vim /etc/environment
-
-Remove proxy-related environment variables except ``no_proxy`` and ``NO_PROXY``. And reboot.
-
-.. code-block:: shell
+    # Remove proxy-related environment variables
+    sudo sed -i '/proxy/Id' /etc/environment
 
     sudo reboot
 
