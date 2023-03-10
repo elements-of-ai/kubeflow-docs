@@ -754,11 +754,6 @@ You can also configure Github as OIDC provider in initial ``helm install`` comma
 ----------------
 Uninstall Gitlab
 ----------------
-=======
-^^^^^^^^^^^^^^^^
-Uninstall Gitlab
-^^^^^^^^^^^^^^^^
->>>>>>> b37522449ebdd30796eee19b99ed75676161a947
 
 To uninstall Gitlab, run following command:
 
@@ -766,7 +761,6 @@ To uninstall Gitlab, run following command:
 
     helm uninstall gitlab -n gitlab
 
-<<<<<<< HEAD
 ---------------
 Troubleshooting
 ---------------
@@ -774,15 +768,6 @@ Troubleshooting
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 422 error code on web UI after login
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-=======
-^^^^^^^^^^^^^^^
-Troubleshooting
-^^^^^^^^^^^^^^^
-
-"""""""""""""""""""""""""""""""""""""
-422 error code on web UI after login
-"""""""""""""""""""""""""""""""""""""
->>>>>>> b37522449ebdd30796eee19b99ed75676161a947
 
 After clicking "Sign in", instead of being guided to Gitlab home page, one sees ``422 The change you requested was rejected`` error. Below 
 are some possible reasons:
@@ -796,15 +781,9 @@ are some possible reasons:
 * ``http`` and ``https`` issues. You should use ``https`` instead of ``https``.
 * Domain issues. In some tutorials, you may see domain ``example.com``, ``xip.io``, etc. It may depend on your environment and network configurations. In my case, the working version is ``<externalIP>.nip.io``. And to access Gitlab on web UI, the one to be used would be ``https://gitlab.<externalIP>.nip.io:443``.
 
-<<<<<<< HEAD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Kubernetes cluster unreachable
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-=======
-""""""""""""""""""""""""""""""
-Kubernetes cluster unreachable
-""""""""""""""""""""""""""""""
->>>>>>> b37522449ebdd30796eee19b99ed75676161a947
 
 You may encounter following error after running ``helm install``:
 
@@ -820,7 +799,6 @@ If this is your case, first run command:
 
 And then redo the ``helm install`` command.
 
-<<<<<<< HEAD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Server certificates verification failed
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -833,7 +811,3 @@ You may meet following error while trying to clone/pull projects
 
 Make sure you are cloning the project with **SSH**, instead of HTTPS. Refer to section :ref:`setup ssh key` for how to setup SSH keys and 
 clone projects with SSH.
-
-
-=======
->>>>>>> b37522449ebdd30796eee19b99ed75676161a947
