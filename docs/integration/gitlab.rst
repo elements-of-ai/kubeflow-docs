@@ -16,6 +16,8 @@ found in `Gitlab official docs <https://docs.gitlab.com/ee/>`__.
 In this guide, we will cover following contents:
 
 * Deploy Gitlab on Kubernetes
+* Setup SSH keys
+* Uninstall Gitlab from Kubernetes
 * **TODO**
 
 ---------------------------
@@ -282,9 +284,95 @@ Click "Sign in", and you should be located to home page:
 
 .. image:: ../_static/integration-gitlab-home.png
 
+.. _setup ssh key:
+
+----------------------------------------------
+Setup SSH key for projects cloning and pulling
+----------------------------------------------
+
+As we are now able to access Gitlab through web UI, it is time to prepare our Gitlab for one of the main usages: clone and pull projects.
+
+For privacy protection and safety, and to avoid certificate validation issues, we suggest you clone and pull projects with **SSH**.
+
+^^^^^^^^^^^^^^^^^^^^^^^^
+Generate a new SSH key
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+First, generate a new SSH key on your machine. If you follow our doc to deploy Kubernetes and Gitlab, you should here generate the SSH key on your virtual machine.
+
+.. code-block:: shell
+
+    ssh-keygen -t ed25519 -C <your_gitlab_account_email>
+
+.. note::
+    Above email should be the one that is linked with the Gitlab account that you are planning to clone/pull projects from. For example, if you plan to have your projects in the root Gitlab account, and clone/pull those projects, above email should be "admin@example.com", the one we set in ``certmanager-issuer.email`` field in :ref:`deploy`.
+
+And you should see outputs like below:
+
+.. code-block:: text
+
+    Generating public/private rsa key pair.
+    Enter file in which to save the key (/home/vmware/.ssh/id_rsa): <press_enter_for_default_save_path>
+    Enter passphrase (empty for no passphrase): <press_enter_for_empty_or_enter_your_passphrase>
+    Enter same passphrase again: <press_enter_for_empty_or_enter_your_passphrase_again>
+    Your identification has been saved in /home/vmware/.ssh/id_ed25519
+    Your public key has been saved in /home/vmware/.ssh/id_ed25519.pub
+    The key fingerprint is:
+    SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx <your_email>
+    The key's randomart image is:
+    +---[RSA 4096]----+
+    |      E o+X +=o =|
+    |       B % B.+o+.|
+    |        O X B .  |
+    |       . o * * o |
+    |        S   o * o|
+    |           . = +.|
+    |            o =. |
+    |             o.  |
+    |            ..   |
+    +----[SHA256]-----+
+
+For questions about passphrase, please refer to `Github official documentation <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases>`__.
+
 ^^^^^^^^^^^^^^^^
+Add your SSH key
+^^^^^^^^^^^^^^^^
+
+In the command execution output above, you can see the saved place of the public key. In above case, it is ``/home/vmware/.ssh/id_rsa.pub``. Remember to change it in 
+to your own saved file in following commands.
+
+``cat`` the SSH key fingerprint.
+
+.. code-block:: shell
+
+    cat /home/vmware/.ssh/id_ed25519.pub
+
+Copy the SSH key fingerprint.
+
+Go to Gilab in your browser. Click the account icon in the right-top cornor. And go to "Edit profile".
+
+.. image:: ../_static/integration-gitlab-editProfile.png
+
+Click "SSH Keys" in right panel ("User Settings"). And copy your newly generated SSH key fingerprint to the box. Set the title, usage 
+type, and expiration date.
+
+Click "Add key".
+
+.. image:: ../_static/integration-gitlab-addKey.png
+
+A successfully added SSH key should be like below:
+
+.. image:: ../_static/integration-gitlab-keyAdded.png
+
+For more information about SSH keys, please refer to `Github official documentation <https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh>`__.
+
+Now, you can clone/pull projects with SSH.
+
+.. image:: ../_static/integration-gitlab-cloneSSH.png
+
+----------------
 Uninstall Gitlab
-^^^^^^^^^^^^^^^^
+----------------
 
 To uninstall Gitlab, run following command:
 
@@ -292,13 +380,13 @@ To uninstall Gitlab, run following command:
 
     helm uninstall gitlab -n gitlab
 
-^^^^^^^^^^^^^^^
+---------------
 Troubleshooting
-^^^^^^^^^^^^^^^
+---------------
 
-"""""""""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 422 error code on web UI after login
-"""""""""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 After clicking "Sign in", instead of being guided to Gitlab home page, one sees ``422 The change you requested was rejected`` error. Below 
 are some possible reasons:
@@ -312,9 +400,9 @@ are some possible reasons:
 * ``http`` and ``https`` issues. You should use ``https`` instead of ``https``.
 * Domain issues. In some tutorials, you may see domain ``example.com``, ``xip.io``, etc. It may depend on your environment and network configurations. In my case, the working version is ``<externalIP>.nip.io``. And to access Gitlab on web UI, the one to be used would be ``https://gitlab.<externalIP>.nip.io:443``.
 
-""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Kubernetes cluster unreachable
-""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You may encounter following error after running ``helm install``:
 
@@ -329,4 +417,18 @@ If this is your case, first run command:
     [microk8s] kubectl config view --raw > ~/.kube/config
 
 And then redo the ``helm install`` command.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Server certificates verification failed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You may meet following error while trying to clone/pull projects
+
+.. code-block:: shell
+
+    fatal: unable to access 'https://gitlab.10.64.140.46.nip.io/xxxxx/xxxxxx.git/': server certificate verification failed. CAfile: none CRLfile: none
+
+Make sure you are cloning the project with **SSH**, instead of HTTPS. Refer to section :ref:`setup ssh key` for how to setup SSH keys and 
+clone projects with SSH.
+
 
