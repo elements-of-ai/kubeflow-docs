@@ -12,6 +12,9 @@ This document will introduce you to all you need to know to get started with Cha
 Create a Nimbus Ubuntu 20.04 VM
 ===============================
 
+Use following command to deploy a Ubuntu 20.04 vm on Nimbus using the provided template. The default **username/password** is
+``vmware/B1gd3m0z``.
+
 .. code-block:: shell
 
     # login DBC server to deloy ubuntu 20.04 vm on nimbus
@@ -26,14 +29,19 @@ Login Nimbus VM
 
 The journey of accessing Charmed Kubeflow starts from login Nimbus VM. You need to change some configurations before deploying Kubeflow.
 
+First, login the deployed vm. (The default **username/password** is ``vmware/B1gd3m0z``.) Edit ``/etc/environment`` file.
+
 .. code-block:: shell
 
-    # login this vm, and edit /etc/environment and remove proxy related env. vars, then reboot
-    # vm username/password: vmware/B1gd3m0z
+    # default password B1gd3m0z
     ssh vmware@<vm_ip>
 
+    # Remove proxy-related environment variables
     sudo sed -i '/proxy/Id' /etc/environment
+
     sudo reboot
+
+Wait for a bit. And then login to the vm.
 
 
 Install and prepare MicroK8s
@@ -58,7 +66,35 @@ It is also useful to make sure the user has the proper access and ownership of a
 
     sudo chown -f -R $USER ~/.kube
 
-MicroK8s will start up as soon as it is installed. It is a completely functional Kubernetes, running with the least amount of overhead possible. However, for our purposes we will need a Kubernetes with a few more features. A lot of extra services are available as MicroK8s “add-ons” - code which is shipped with the snap and can be turned on and off when it is needed. We can now enable some of these features to get a Kubernetes where we can usefully install Kubeflow. We will add a DNS service, so the applications can find each other; we will also add a storage, an ingress controller so we can access Kubeflow components and the MetalLB load balancer application. These will be enabled simply at the same time:
+To avoid ``docker.io`` pull rate limit issue, we need to make some extra changes. Open and edit ``/var/snap/microk8s/current/args/containerd-template.toml``.
+
+.. code-block:: shell
+
+    sudo vim /var/snap/microk8s/current/args/containerd-template.toml
+
+Edit the following section, which should be at the bottom of the file. Note the ``endpoint = ["http://10.186.15.152", ]``.
+
+.. code-block:: text
+
+    [plugins."io.containerd.grpc.v1.cri".registry.mirrors]
+        [plugins."io.containerd.grpc.v1.cri".registry.mirrors."docker.io"]
+            endpoint = ["http://10.186.15.152", ]
+
+We then fix the ``AppArmor`` issue.
+
+.. code-block:: shell
+
+    sudo systemctl start apparmor
+    sudo apparmor_parser -r /var/lib/snapd/apparmor/profiles/*
+
+Restart Microk8s to apply above changes.
+
+.. code-block:: shell
+
+    microk8s stop
+    microk8s start
+
+MicroK8s will start up as soon as it is ready. It is a completely functional Kubernetes, running with the least amount of overhead possible. However, for our purposes we will need a Kubernetes with a few more features. A lot of extra services are available as MicroK8s “add-ons” - code which is shipped with the snap and can be turned on and off when it is needed. We can now enable some of these features to get a Kubernetes where we can usefully install Kubeflow. We will add a DNS service, so the applications can find each other; we will also add a storage, an ingress controller so we can access Kubeflow components and the MetalLB load balancer application. These will be enabled simply at the same time:
 
 .. code-block:: shell
 
@@ -108,8 +144,8 @@ Deploying Charmed Kubeflow
 --------------------------
 
 Charmed Kubeflow is essentially a collection of charms. Each of these charms deploys and controls one application which goes to make up Kubeflow. You can actually just install the components you want by individually deploying the charms and relating them to each other to build up Kubeflow. 
-You may understand the bundles as a recipe for a particular deployment of Kubeflow, and can feel free to 
-The bundles are essentially a recipe for a particular deployment of Kubeflow. You can feel free to edit the configurations and application relations based on this "recipe" instead of starting from scratch. In this way, you can get a working deployment with the minimum efforts.
+You may understand the bundles as a recipe for a particular deployment of Kubeflow, and can feel free to edit the configurations and 
+application relations based on this "recipe" instead of starting from scratch. In this way, you can get a working deployment with the minimum efforts.
 
 .. code-block:: shell
 

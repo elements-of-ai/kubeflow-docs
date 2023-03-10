@@ -19,7 +19,7 @@ It is used widely for data-intensive processing tasks. It is a multi-language en
 science, and machine learning on single-node machines or clusters. It supports multiple powerful features such as streaming 
 data, SQL analytics, data science at scale and machine learning. 
 
-In this guide, we will walk you through an exmple to show how to integrate Spark into Kubeflow ML workflow.
+In this guide, we will walk you through an example to show how to integrate Spark into Kubeflow ML workflow.
 
 -------------
 Prerequisites
