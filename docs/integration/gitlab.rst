@@ -18,7 +18,12 @@ In this guide, we will cover following contents:
 * Deploy Gitlab on Kubernetes
 * Setup SSH keys
 * Uninstall Gitlab from Kubernetes
+* Authentication and authorization
+    * LDAP (Lightweight Directory Access Protocol)
+    * OIDC (OpenID Connect)
 * **TODO**
+
+.. _deploy gitlab on k8s:
 
 ---------------------------
 Deploy Gitlab on Kubernetes
@@ -127,6 +132,7 @@ Note the following:
 
     2. Pick one in above range, such as ``10.64.140.46``. Make sure your chosen IP has not been used by other deployed apps.
 
+.. _monitor the deployment:
 
 ^^^^^^^^^^^^^^^^^^^^^^
 Monitor the deployment
@@ -253,6 +259,8 @@ Check all deployments are ready:
     gitlab—sidekiq—all—in-1—v2      1/1     1           1           13h 
     gitlab—webservice—default       2/2     2           2           13h
 
+.. _access gitlab web ui:
+
 ^^^^^^^^^^^^^^^^^^^^
 Access Gitlab web UI
 ^^^^^^^^^^^^^^^^^^^^
@@ -369,6 +377,173 @@ For more information about SSH keys, please refer to `Github official documentat
 Now, you can clone/pull projects with SSH.
 
 .. image:: ../_static/integration-gitlab-cloneSSH.png
+
+--------------------------------
+Authentication and authorization
+--------------------------------
+
+GitLab can integrate with a number of OmniAuth providers and external authentication and authorization providers. In this documentation, 
+we would introduce you to how to integrate your deployed Gitlab with:
+
+* LDAP (an external authentication provider)
+* OIDC (OmniAuth providers)
+    * Gitlab
+    * **TODO**
+
+^^^^^^^^^^^^^^
+Integrate LDAP
+^^^^^^^^^^^^^^
+
+GitLab integrates with `LDAP (Lightweight Directory Access Protocol) <https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol>`__ 
+to support user authentication. This integration works with most LDAP-compliant directory servers, including:
+
+* Microsoft Active Directory
+* Apple Open Directory
+* Open LDAP
+* 389 Server
+
+.. attention::
+    GitLab does not support `Microsoft Active Directory Trusts <https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc771568(v=ws.10)>`__.
+
+Users added through LDAP can authenticate with Git using their LDAP username and password. The LDAP DN (distinguished name) is associated with 
+existing GitLab users when:
+
+* The existing user signs in to GitLab with LDAP for the first time.
+* The LDAP email address is the primary email address of an existing GitLab user. If the LDAP email attribute is not found in the GitLab user database, a new user is created.
+
+If an existing GitLab user wants to enable LDAP sign-in for themselves, they should:
+
+1. Check that their GitLab email address matches their LDAP email address.
+2. Sign in to GitLab by using their LDAP credentials (username/password).
+
+""""""""""""""
+Configure LDAP
+""""""""""""""
+
+We would assume you deploy Gitlab using Helm chart, as guided in :ref:`deploy gitlab on k8s`.
+
+First, export the Helm values to get the configurations of our previously deployed Gitlab.
+
+.. code-block:: shell
+
+    helm get values gitlab > gitlab_values.yaml
+
+Now we have the configurations of our previously deployed Gitlab in file ``gitlab_values.yaml``. Edit this file to add LDAP configuration. 
+Note that the LDAP configuration is mainly in ``appConfig.ldap``.
+
+.. code-block:: yaml
+
+    USER-SUPPLIED VALUES:
+    certmanager-issuer:
+    email: admin@example.com
+    global:
+    appConfig:
+      ldap:
+        allow_username_or_email_login: false
+        preventSignin: false
+          servers:
+            main:
+              label: LDAP
+              host: 10.117.0.26
+              port: 636
+              base: dc=vmware,dc=com
+              encryption: simple_tls
+              uid: uid
+              verify_certificates: false
+    hosts:
+      domain: 10.64.140.46.nip.io
+      externalIP: 10.64.140.46
+    time_zone: UTC
+    postgresql:
+    image:
+      tag: 13.6.0
+
+Following configuration settings are noted here:
+
+* ``allow_username_or_email_login``: If enabled, GitLab ignores everything after the first ``@`` in the LDAP username submitted by the user on sign-in. If you are using ``uid: 'userPrincipalName'`` on ``ActiveDirectory`` you must disable this setting because the ``userPrincipalName`` contains an ``@``.
+* ``preventSignin``: *Disable it to allow users sign in using LDAP credentials through web UI.* Sometimes, people prefer to prevent using LDAP credentials through the web UI when an alternative such as SAML is available. If that is the case, ``preventSignin`` field should be set to ``true``.
+* ``label``: REQUIRED. A human-friendly name for your LDAP server. It is displayed on your sign-in page.
+* ``host``: REQUIRED. IP address or domain name of your LDAP server. Ignored when hosts is defined. *The above configuration uses the IP of a LDAP server setup internally in VMware. You may change it.*
+* ``port``: REQUIRED. The port to connect with on your LDAP server. Always an integer, not a string. Two commonly used ports are ``389`` and ``636`` (for SSL). Ignored when hosts is defined. *You may need to use HTTPS, and therefore 636 is used in above configuration.*
+* ``base``: REQUIRED. Base where we can search for users. *You should get this value based on the setting details of your LDAP server.*
+* ``encryption``: REQUIRED. Encryption method. Usually, ``simple_tls`` is used for port ``636`` while ``plain`` is used for port ``389``.
+* ``uid``: REQUIRED. The LDAP attribute that maps to the username that users use to sign in. Should be the attribute, not the value that maps to the ``uid``. Does not affect the GitLab username.
+* ``verify_certificates``: Enables SSL certificate verification if encryption method is ``start_tls`` or ``simple_tls``. If set to false, no validation of the LDAP server’s SSL certificate is performed. Defaults to true.
+
+To view more configuration setting and attribute information, please refer to official documentations on 
+`configuration settings <https://docs.gitlab.com/ee/administration/auth/ldap/?tab=Helm+chart+%28Kubernetes%29#basic-configuration-settings>`__ 
+and `attributes <https://docs.gitlab.com/ee/administration/auth/ldap/?tab=Helm+chart+%28Kubernetes%29#attribute-configuration-settings>`__.
+
+Save the changes in ``gitlab_values.yaml``. And apply these changes to upgrade the Gitlab.
+
+.. code-block:: shell
+
+    helm upgrade -f gitlab_values.yaml gitlab gitlab/gitlab
+
+This may take some time. Please wait patiently.
+
+""""""""""""""""""""
+Sign in through LDAP
+""""""""""""""""""""
+
+After successfully upgrading the Gitlab and integrating the LDAP configurations, first double check if all pods, services, deployments, and 
+ingresses are on and ready, as discussed in :ref:`monitor the deployment`.
+
+.. important::
+    Some pods (such as ``webservices``) may need some time to integrate those changes. Please wait patiently and make sure everything is ready.
+
+Go to Gitlab web UI. Now, you should be able to see LDAP sign in. 
+
+.. image:: ../_static/integration-gitlab-ldapSignin.png
+
+Sign in with your LDAP credential.
+
+.. important::
+    In this guide, we use the LDAP server setup VMware internally setup. So the username and password is directly our company username/password. 
+    If you use a different LDAP server, such as a LDAP server you setup on your own, you should check your own LDAP credential.
+
+Sometimes, based on your own settings, you may encounter message saying that your *signin is in pending status as Administrator/Admin's approval 
+is needed*. If that is your case, sign in the root account through "Standard" sign in, using the email we configured in :ref:`deploy` and 
+password we get in :ref:`access gitlab web ui`. 
+
+.. image:: ../_static/integration-gitlab-rootSignin.png
+
+Click on the menu bar on left-top cornor, next to the Gitlab logo. And click "Admin".
+
+.. image:: ../_static/integration-gitlab-admin.png
+
+Click "Users" in the right panel. And go to "Pending approval" to see users that needs approval from Admin.
+
+.. image:: ../_static/integration-gitlab-pending.png
+
+Approve your LDAP user.
+
+Sign out the root account, and re-login using your LDAP credential. This time, you should be all set!
+
+""""""""""""""""""""""""""""""""""""""""""""
+Configure LDAP initially during installation
+""""""""""""""""""""""""""""""""""""""""""""
+
+You can also configure LDAP in ``helm install`` command. Below is an example:
+
+.. code-block:: shell
+
+    helm upgrade --install gitlab gitlab/gitlab   \
+	--timeout 600s   \
+	--set global.hosts.externalIP=10.64.140.46     \
+	--set global.hosts.domain=10.64.140.46.nip.io   \
+	--set postgresql.image.tag=13.6.0   \
+	--set global.time_zone=UTC  \
+	--set certmanager-issuer.email=admin@example.com     \
+	--set global.appConfig.ldap.servers.main.label='LDAP'     \
+	--set global.appConfig.ldap.servers.main.host='10.117.0.26'    \
+	--set global.appConfig.ldap.servers.main.port='636'     \
+	--set global.appConfig.ldap.servers.main.uid='uid'     \
+	--set global.appConfig.ldap.servers.main.base='dc=vmware\,dc=com'     \
+	--set global.appConfig.ldap.servers.main.encryption='simple_tls' \
+	--set global.appConfig.ldap.servers.main.verify_certificates='false' \
+	--set global.appConfig.ldap.preventSignin='false'  \
+	--set global.appConfig.ldap.allow_username_or_email_login='false' \
 
 ----------------
 Uninstall Gitlab
