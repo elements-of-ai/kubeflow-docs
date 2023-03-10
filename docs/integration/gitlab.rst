@@ -361,7 +361,7 @@ Go to Gilab in your browser. Click the account icon in the right-top cornor. And
 
 .. image:: ../_static/integration-gitlab-editProfile.png
 
-Click "SSH Keys" in right panel ("User Settings"). And copy your newly generated SSH key fingerprint to the box. Set the title, usage 
+Click "SSH Keys" in left panel ("User Settings"). And copy your newly generated SSH key fingerprint to the box. Set the title, usage 
 type, and expiration date.
 
 Click "Add key".
@@ -417,8 +417,16 @@ If an existing GitLab user wants to enable LDAP sign-in for themselves, they sho
 2. Sign in to GitLab by using their LDAP credentials (username/password).
 
 """"""""""""""
-Configure LDAP
+Prerequisites
 """"""""""""""
+
+Make sure below prerequisites are satisfied before moving on.
+
+* A setup LDAP server.
+
+""""""""""""""""""""""""""
+Configure Gitlab for LDAP
+""""""""""""""""""""""""""
 
 We would assume you deploy Gitlab using Helm chart, as guided in :ref:`deploy gitlab on k8s`.
 
@@ -482,6 +490,8 @@ Save the changes in ``gitlab_values.yaml``. And apply these changes to upgrade t
 
 This may take some time. Please wait patiently.
 
+.. _ldap signin:
+
 """"""""""""""""""""
 Sign in through LDAP
 """"""""""""""""""""
@@ -512,7 +522,7 @@ Click on the menu bar on left-top cornor, next to the Gitlab logo. And click "Ad
 
 .. image:: ../_static/integration-gitlab-admin.png
 
-Click "Users" in the right panel. And go to "Pending approval" to see users that needs approval from Admin.
+Click "Users" in the left panel. And go to "Pending approval" to see users that needs approval from Admin.
 
 .. image:: ../_static/integration-gitlab-pending.png
 
@@ -524,26 +534,222 @@ Sign out the root account, and re-login using your LDAP credential. This time, y
 Configure LDAP initially during installation
 """"""""""""""""""""""""""""""""""""""""""""
 
-You can also configure LDAP in ``helm install`` command. Below is an example:
+You can also configure LDAP in initial ``helm install`` command. Below is an example:
 
 .. code-block:: shell
 
     helm upgrade --install gitlab gitlab/gitlab   \
-	--timeout 600s   \
-	--set global.hosts.externalIP=10.64.140.46     \
-	--set global.hosts.domain=10.64.140.46.nip.io   \
-	--set postgresql.image.tag=13.6.0   \
-	--set global.time_zone=UTC  \
-	--set certmanager-issuer.email=admin@example.com     \
-	--set global.appConfig.ldap.servers.main.label='LDAP'     \
-	--set global.appConfig.ldap.servers.main.host='10.117.0.26'    \
-	--set global.appConfig.ldap.servers.main.port='636'     \
-	--set global.appConfig.ldap.servers.main.uid='uid'     \
-	--set global.appConfig.ldap.servers.main.base='dc=vmware\,dc=com'     \
-	--set global.appConfig.ldap.servers.main.encryption='simple_tls' \
-	--set global.appConfig.ldap.servers.main.verify_certificates='false' \
-	--set global.appConfig.ldap.preventSignin='false'  \
-	--set global.appConfig.ldap.allow_username_or_email_login='false' \
+	    --timeout 600s   \
+	    --set global.hosts.externalIP='10.64.140.46'     \
+	    --set global.hosts.domain='10.64.140.46.nip.io'   \
+	    --set postgresql.image.tag='13.6.0'   \
+	    --set global.time_zone='UTC'  \
+	    --set certmanager-issuer.email='admin@example.com'     \
+	    --set global.appConfig.ldap.servers.main.label='LDAP'     \
+	    --set global.appConfig.ldap.servers.main.host='10.117.0.26'    \
+	    --set global.appConfig.ldap.servers.main.port='636'     \
+	    --set global.appConfig.ldap.servers.main.uid='uid'     \
+	    --set global.appConfig.ldap.servers.main.base='dc=vmware\,dc=com'     \
+	    --set global.appConfig.ldap.servers.main.encryption='simple_tls' \
+	    --set global.appConfig.ldap.servers.main.verify_certificates='false' \
+	    --set global.appConfig.ldap.preventSignin='false'  \
+	    --set global.appConfig.ldap.allow_username_or_email_login='false'
+
+.. note::
+    For details about gitlab configuration, refer to :ref:`deploy`.
+
+^^^^^^^^^^^^^^^^^^^^^^
+Integrate OIDC: Github
+^^^^^^^^^^^^^^^^^^^^^^
+
+GitLab can use `OpenID Connect (OIDC) <https://openid.net/specs/openid-connect-core-1_0.html>`__ as an OmniAuth provider.
+
+To enable the OpenID Connect OmniAuth provider, you must register your application with an OpenID Connect provider. The OpenID Connect 
+provides you with a client’s details and secret for you to use.
+
+In this section, we would introduce how to use Github as an OIDC provider and integrate it with Gitlab.
+
+"""""""""""""
+Prerequisite
+"""""""""""""
+
+Make sure following prerequisites are satisfied before moving on.
+
+* A `Github <https://github.com/>`__ account.
+
+""""""""""""""""""""""""""
+Create a Github OAuth app
+""""""""""""""""""""""""""
+
+We first create an OAuth app in Github.
+
+Go to `Github <https://github.com/>`__. Sign in to your Github account. Click on your accont icon on right-top corner. And click "Settings".
+
+.. image:: ../_static/integration-gitlab-githubSettings.png
+
+On the left panel, scroll down to the bottom, and click "Developer settings".
+
+.. image:: ../_static/integration-gitlab-developerSetting.png
+
+On the left panel, click "OAuth Apps". And click "New OAuth App".
+
+.. image:: ../_static/integration-gitlab-newApp.png
+
+Enter an application name. 
+
+For the "Homepage URL", enter the **URL of your deployed Gitlab**, i.e. ``https://gitlab.<external_ip>.nip.io`` if you deployed Gitlab 
+following our guide :ref:`deploy gitlab on k8s`.
+
+For the "Authorization callback URL", the format, by default, should be ``https://<app_url>/users/auth/<openid_connect>/callback``. 
+``<app_url>`` should be the URL of your deployed Gitlab. And the ``<openid_connect>``, in our case, should be ``github``.
+
+.. image:: ../_static/integration-gitlab-createApp.png
+
+Click "Register application".
+
+You should be able to see your registered OAuth App then.
+
+.. image:: ../_static/integration-gitlab-app.png
+
+""""""""""""""""""""""""""""
+Get OAuth App ID and secret
+""""""""""""""""""""""""""""
+
+Click on your App.
+
+You should be able to directly see your **Client ID**. Save this client ID. This would be used later.
+
+To get your **Client secret** if you do not have one, click on "Generate a new client secret". Save this client secret. This would be 
+used later.
+
+.. image:: ../_static/integration-gitlab-id.png
+
+.. _create secret:
+
+""""""""""""""""""""""""""""""""""""""""""""""
+Create a secret for Github OAuth configuration
+""""""""""""""""""""""""""""""""""""""""""""""
+
+As our Github OAuth App is ready, we can now configure this OIDC provider.
+
+Create a YAML file called. You may name it ``provider.yaml``.
+
+.. code-block:: yaml
+
+    name: github
+    label: Github
+    app_id: <Github_OAuth_App_Client_ID>
+    app_secret: <Github_OAuth_App_Client_Secret>
+    args:
+      scope: "user:email"
+
+Create a secret for this provider configuration.
+
+.. code-block:: shell
+
+    microk8s kubectl create secret generic -n <NAMESPACE> <SECRET_NAME> --from-file=provider=<YAML_FILE_NAME>
+
+An example of above command can be ``microk8s kubectl create secret generic -n default gitlab-oidc-github --from-file=provider=provider.yaml``.
+
+""""""""""""""""""""""""""""""""""""""""""""
+Configure Gitlab for Github as OIDC provider
+""""""""""""""""""""""""""""""""""""""""""""
+
+We can now configure our Gitlab to integrate Github as OIDC provider.
+
+Export Gitlab configurations. *You may skip this command if you have already done so.*
+
+.. code-block:: shell
+
+    helm get values gitlab > gitlab_values.yaml
+
+The configuration values of your Gitlab is now saved in ``gitlab_values.yaml``. We need to edit this file to add configurations for 
+Github as OIDC provider. Changes are mainly in ``appConfig.omniauth``.
+
+.. code-block:: yaml
+
+    USER-SUPPLIED VALUES:
+    certmanager-issuer:
+    email: admin@example.com
+    global:
+    appConfig:
+      omniauth:
+        allowSingleSignOn:
+          - github
+        autoLinkLdapUser: false
+        enabled: true
+        providers:
+          - key: provider
+            secret: gitlab-oidc-github
+    hosts:
+      domain: 10.64.140.46.nip.io
+      externalIP: 10.64.140.46
+    time_zone: UTC
+    postgresql:
+    image:
+      tag: 13.6.0
+
+A few things are noted here:
+
+* ``allowSingleSignOn``: Enable the automatic creation of accounts when signing in with OmniAuth. Input the name of the OmniAuth Provider. *In this case, it would be github*.
+* ``autoLinkLdapUser``: Can be used if you have LDAP/ActiveDirectory integration enabled. When enabled, users automatically created through OmniAuth will be linked to their LDAP entry as well. *You may change above to true. Above is set for testing purpose.*
+* ``providers``: ``providers`` is presented as an array of maps. See GitLab documentation for the available selection of `Supported Providers <https://docs.gitlab.com/ee/integration/omniauth.html#supported-providers>`__. This property has two sub-keys: ``secret`` and ``key``.
+    * ``key``: Optional. The name of the key in the ``secret`` containing the provider block generated in :ref:`create secret`. Defaults to ``provider``.
+    * ``secret``: REQUIRED. The name of the Kubernetes ``secret`` containing the provider block generated in :ref:`create secret`. In above secret generating example command, we set the name as ``gitlab-oidc-github``. **You may need to change it based on your own case.**
+
+Save the changes in ``gitlab_values.yaml``. And apply these changes to upgrade the Gitlab.
+
+.. code-block:: shell
+
+    helm upgrade -f gitlab_values.yaml gitlab gitlab/gitlab
+
+This may take some time. Please wait patiently.
+
+""""""""""""""""""""
+Sign in with Github
+""""""""""""""""""""
+
+After successfully upgrading the Gitlab and integrating the LDAP configurations, first double check if all pods, services, deployments, and 
+ingresses are on and ready, as discussed in :ref:`monitor the deployment`.
+
+.. important::
+    Some pods (such as ``webservices``) may need some time to integrate those changes. Please wait patiently and make sure everything is ready.
+
+Go to Gitlab web UI. Now, you should be able to see Github sign in. 
+
+.. image:: ../_static/integration-gitlab-githubSignin.png
+
+Click on it. And you should be directed to *Github sign in page*.
+
+Enter your *Github sign in credentials*. And *authorize Gitlab to use Github for sign in*.
+
+.. important::
+    If you set ``autoLinkLdapUser`` to be ``false`` in above configuration, here you may need to use Github with a different email as the 
+    one used for LDAP. Otherwise, you may encounter message saying that ``Email already exists. Recover your password``.
+
+After entering your Github login credentials and authorizing, you should come to Gitlab home page. If you encounter message saying that 
+*signin is in pending status as Administrator/Admin's approval is needed*, please refer to :ref:`ldap signin` for detailed instruction.
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+Configure Github OIDC initially during installation
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+You can also configure Github as OIDC provider in initial ``helm install`` command. Below is an example:
+
+.. code-block:: shell
+
+    helm upgrade --install gitlab gitlab/gitlab   \
+	    --timeout 600s   \
+	    --set global.hosts.externalIP=10.64.140.46     \
+	    --set global.hosts.domain=10.64.140.46.nip.io   \
+	    --set postgresql.image.tag=13.6.0   \
+	    --set global.time_zone=UTC  \
+	    --set certmanager-issuer.email=admin@example.com     \
+	    --set global.appConfig.omniauth.enabled='true' \
+	    --set global.appConfig.omniauth.allowSingleSignOn[0]='github' \
+	    --set global.appConfig.omniauth.autoLinkLdapUser='false' \
+	    --set global.appConfig.omniauth.providers[0].secret=gitlab-oidc-github \
+	    --set global.appConfig.omniauth.providers[0].key=provider
 
 ----------------
 Uninstall Gitlab
