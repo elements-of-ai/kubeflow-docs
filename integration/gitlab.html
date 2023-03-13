@@ -1,0 +1,2082 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../_static/favicon.ico">
+    
+    
+      
+        <title>GitLab - Kubeflow Enterprise Docs</title>
+      
+    
+    
+      
+        
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.fa3fbbd75cfdd7cef.min.css" />
+        <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Kubeflow Enterprise Docs" class="md-header__button md-logo" aria-label="Kubeflow Enterprise Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kubeflow Enterprise Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GitLab
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="light-blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="yellow"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elements-of-ai/kubeflow-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Kubeflow Docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Kubeflow Enterprise Docs" class="md-nav__button md-logo" aria-label="Kubeflow Enterprise Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+    </a>
+    Kubeflow Enterprise Docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elements-of-ai/kubeflow-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Kubeflow Docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Overview</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/oss.html" class="md-nav__link">
+        <span class="md-ellipsis">Open Source Kubeflow Components</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/ekf.html" class="md-nav__link">
+        <span class="md-ellipsis">Kubeflow Enterprise Components and Features</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/mlops.html" class="md-nav__link">
+        <span class="md-ellipsis">MLOps with Kubeflow</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          <span class="md-ellipsis">Install</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Install" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Install</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Overview</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install/ubuntu.html" class="md-nav__link">
+        <span class="md-ellipsis">Install Kubeflow on Nimbus</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          <span class="md-ellipsis">Integration</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Integration" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Integration</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        <span class="md-ellipsis">Overview</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Git<wbr>Lab</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Git<wbr>Lab</span>
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span class="md-ellipsis">Git<wbr>Lab</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-gitlab-on-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">Deploy Gitlab on Kubernetes</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploy Gitlab on Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span title="prerequisites (reference label)" class="md-ellipsis">Prerequisites</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-helm-chart-for-gitlab-deployment" class="md-nav__link">
+    <span class="md-ellipsis">Use Helm chart for Gitlab deployment</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Helm chart for Gitlab deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-gitlab-to-helm-repo" class="md-nav__link">
+    <span class="md-ellipsis">Add Gitlab to helm repo</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-and-deploy" class="md-nav__link">
+    <span class="md-ellipsis">Configure and deploy</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-the-deployment" class="md-nav__link">
+    <span title="monitor the deployment (reference label)" class="md-ellipsis">Monitor the deployment</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-gitlab-web-ui" class="md-nav__link">
+    <span title="access gitlab web ui (reference label)" class="md-ellipsis">Access Gitlab web UI</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-ssh-key-for-projects-cloning-and-pulling" class="md-nav__link">
+    <span class="md-ellipsis">Setup SSH key for projects cloning and pulling</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup SSH key for projects cloning and pulling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-new-ssh-key" class="md-nav__link">
+    <span class="md-ellipsis">Generate a new SSH key</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-your-ssh-key" class="md-nav__link">
+    <span class="md-ellipsis">Add your SSH key</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-and-authorization" class="md-nav__link">
+    <span class="md-ellipsis">Authentication and authorization</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication and authorization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integrate-ldap" class="md-nav__link">
+    <span class="md-ellipsis">Integrate LDAP</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrate LDAP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id4" class="md-nav__link">
+    <span class="md-ellipsis">Prerequisites</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-gitlab-for-ldap" class="md-nav__link">
+    <span class="md-ellipsis">Configure Gitlab for LDAP</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-through-ldap" class="md-nav__link">
+    <span class="md-ellipsis">Sign in through LDAP</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-ldap-initially-during-installation" class="md-nav__link">
+    <span class="md-ellipsis">Configure LDAP initially during installation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrate-oidc-github" class="md-nav__link">
+    <span class="md-ellipsis">Integrate OIDC:<wbr> Github</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrate OIDC: Github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisite" class="md-nav__link">
+    <span class="md-ellipsis">Prerequisite</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-github-oauth-app" class="md-nav__link">
+    <span class="md-ellipsis">Create a Github OAuth app</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-oauth-app-id-and-secret" class="md-nav__link">
+    <span class="md-ellipsis">Get OAuth App ID and secret</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-secret-for-github-oauth-configuration" class="md-nav__link">
+    <span class="md-ellipsis">Create a secret for Github OAuth configuration</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-gitlab-for-github-as-oidc-provider" class="md-nav__link">
+    <span class="md-ellipsis">Configure Gitlab for Github as OIDC provider</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-with-github" class="md-nav__link">
+    <span class="md-ellipsis">Sign in with Github</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-github-oidc-initially-during-installation" class="md-nav__link">
+    <span class="md-ellipsis">Configure Github OIDC initially during installation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstall-gitlab" class="md-nav__link">
+    <span class="md-ellipsis">Uninstall Gitlab</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">Troubleshooting</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-code-on-web-ui-after-login" class="md-nav__link">
+    <span class="md-ellipsis">422 error code on web UI after login</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-cluster-unreachable" class="md-nav__link">
+    <span class="md-ellipsis">Kubernetes cluster unreachable</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-certificates-verification-failed" class="md-nav__link">
+    <span class="md-ellipsis">Server certificates verification failed</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="identity.html" class="md-nav__link">
+        <span class="md-ellipsis">Identity Providers <wbr>(OIDC)</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="auth.html" class="md-nav__link">
+        <span class="md-ellipsis">Auth<wbr>Service</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          <span class="md-ellipsis">User Guide</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">User Guide</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Overview</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/notebooks.html" class="md-nav__link">
+        <span class="md-ellipsis">Kubeflow Notebooks</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/feast.html" class="md-nav__link">
+        <span class="md-ellipsis">Feast</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/spark.html" class="md-nav__link">
+        <span class="md-ellipsis">Spark</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/mlmd.html" class="md-nav__link">
+        <span class="md-ellipsis">ML Metadata <wbr>(MLMD)</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/mlflow.html" class="md-nav__link">
+        <span class="md-ellipsis">MLFlow</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/training.html" class="md-nav__link">
+        <span class="md-ellipsis">ML Training</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/tensorboard.html" class="md-nav__link">
+        <span class="md-ellipsis">Tensor<wbr>Board</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/katib.html" class="md-nav__link">
+        <span class="md-ellipsis">Hyperparameter Tuning</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/kserve.html" class="md-nav__link">
+        <span class="md-ellipsis">KServe</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/kfp.html" class="md-nav__link">
+        <span class="md-ellipsis">Kubeflow Pipelines</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          <span class="md-ellipsis">Use Cases</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Use Cases" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Use Cases</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use-cases/helmet.html" class="md-nav__link">
+        <span class="md-ellipsis">Helmet Detection</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          <span class="md-ellipsis">Operation Guide</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Operation Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Operation Guide</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operation-guide/index.html" class="md-nav__link">
+        <span class="md-ellipsis">Overview</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_10" type="checkbox" id="__nav_10" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_10">
+          <span class="md-ellipsis">Internals</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Internals" data-md-level="1">
+        <label class="md-nav__title" for="__nav_10">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Internals</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internals/auth.html" class="md-nav__link">
+        <span class="md-ellipsis">Authentication and Authorization</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span class="md-ellipsis">Git<wbr>Lab</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">Overview</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-gitlab-on-kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">Deploy Gitlab on Kubernetes</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deploy Gitlab on Kubernetes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span title="prerequisites (reference label)" class="md-ellipsis">Prerequisites</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-helm-chart-for-gitlab-deployment" class="md-nav__link">
+    <span class="md-ellipsis">Use Helm chart for Gitlab deployment</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Use Helm chart for Gitlab deployment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-gitlab-to-helm-repo" class="md-nav__link">
+    <span class="md-ellipsis">Add Gitlab to helm repo</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-and-deploy" class="md-nav__link">
+    <span class="md-ellipsis">Configure and deploy</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitor-the-deployment" class="md-nav__link">
+    <span title="monitor the deployment (reference label)" class="md-ellipsis">Monitor the deployment</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-gitlab-web-ui" class="md-nav__link">
+    <span title="access gitlab web ui (reference label)" class="md-ellipsis">Access Gitlab web UI</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setup-ssh-key-for-projects-cloning-and-pulling" class="md-nav__link">
+    <span class="md-ellipsis">Setup SSH key for projects cloning and pulling</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup SSH key for projects cloning and pulling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-new-ssh-key" class="md-nav__link">
+    <span class="md-ellipsis">Generate a new SSH key</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-your-ssh-key" class="md-nav__link">
+    <span class="md-ellipsis">Add your SSH key</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-and-authorization" class="md-nav__link">
+    <span class="md-ellipsis">Authentication and authorization</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication and authorization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integrate-ldap" class="md-nav__link">
+    <span class="md-ellipsis">Integrate LDAP</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrate LDAP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#id4" class="md-nav__link">
+    <span class="md-ellipsis">Prerequisites</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-gitlab-for-ldap" class="md-nav__link">
+    <span class="md-ellipsis">Configure Gitlab for LDAP</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-through-ldap" class="md-nav__link">
+    <span class="md-ellipsis">Sign in through LDAP</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-ldap-initially-during-installation" class="md-nav__link">
+    <span class="md-ellipsis">Configure LDAP initially during installation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrate-oidc-github" class="md-nav__link">
+    <span class="md-ellipsis">Integrate OIDC:<wbr> Github</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrate OIDC: Github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisite" class="md-nav__link">
+    <span class="md-ellipsis">Prerequisite</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-github-oauth-app" class="md-nav__link">
+    <span class="md-ellipsis">Create a Github OAuth app</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-oauth-app-id-and-secret" class="md-nav__link">
+    <span class="md-ellipsis">Get OAuth App ID and secret</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-secret-for-github-oauth-configuration" class="md-nav__link">
+    <span class="md-ellipsis">Create a secret for Github OAuth configuration</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-gitlab-for-github-as-oidc-provider" class="md-nav__link">
+    <span class="md-ellipsis">Configure Gitlab for Github as OIDC provider</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sign-in-with-github" class="md-nav__link">
+    <span class="md-ellipsis">Sign in with Github</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-github-oidc-initially-during-installation" class="md-nav__link">
+    <span class="md-ellipsis">Configure Github OIDC initially during installation</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uninstall-gitlab" class="md-nav__link">
+    <span class="md-ellipsis">Uninstall Gitlab</span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">Troubleshooting</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-code-on-web-ui-after-login" class="md-nav__link">
+    <span class="md-ellipsis">422 error code on web UI after login</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes-cluster-unreachable" class="md-nav__link">
+    <span class="md-ellipsis">Kubernetes cluster unreachable</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-certificates-verification-failed" class="md-nav__link">
+    <span class="md-ellipsis">Server certificates verification failed</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+  <a href="https://github.com/elements-of-ai/kubeflow-docs/blob/master/docs/integration/gitlab.rst" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+<h1 id="gitlab">GitLab<a class="headerlink" href="#gitlab" title="Permalink to this heading">¶</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
+<p>From planning to production, <a class="reference external" href="https://about.gitlab.com/">GitLab</a> brings teams together to shorten cycle times, reduce costs,
+strengthen security, and increase developer productivity. It helps the engineering teams remove toolchain complexity and accelerate
+DevOps adoption. GitLab provides DevOps software and version control management that is based on Git. The platform provides tools
+for continuous integration, security, and continuous deployment. It offers features such as built-in continuous integration and
+deployment, project management, code review analytics, issue trackikng, etc, which can all useful for MLOps. More details can be
+found in <a class="reference external" href="https://docs.gitlab.com/ee/">Gitlab official docs</a>.</p>
+<p>In this guide, we will cover following contents:</p>
+<ul class="simple">
+<li><p>Deploy Gitlab on Kubernetes</p></li>
+<li><p>Setup SSH keys</p></li>
+<li><p>Uninstall Gitlab from Kubernetes</p></li>
+<li><dl class="simple">
+<dt>Authentication and authorization</dt><dd><ul>
+<li><p>LDAP (Lightweight Directory Access Protocol)</p></li>
+<li><p>OIDC (OpenID Connect)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><strong>TODO</strong></p></li>
+</ul>
+<h2 id="deploy-gitlab-on-kubernetes"><span id="deploy-gitlab-on-k8s"></span>Deploy Gitlab on Kubernetes<a class="headerlink" href="#deploy-gitlab-on-kubernetes" title="Permalink to this heading">¶</a></h2>
+<p>The journey of integraing Gitlab into MLOps starting from deploying it on Kubernetes. In this guide, we will use <a class="reference external" href="https://helm.sh/">Helm</a>.</p>
+<h3 id="prerequisites"><span id="id1"></span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">¶</a></h3>
+<p>Before deployment, make sure following prerequisites are fulfilled:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kubectl</span></code> CLI installed. You may follow <a class="reference external" href="https://kubernetes.io/docs/tasks/tools/#kubectl">the Kubernetes documentation</a>, or follow our doc <a class="reference internal" href="../install/ubuntu.html#install-ubuntu"><span class="std std-ref">Install Kubeflow on Nimbus</span></a>.</p></li>
+<li><p>Helm v3.3.1 or later installed. You may refer <a class="reference external" href="https://helm.sh/docs/intro/install/">the Helm documentation</a>.</p></li>
+<li><p>Docker installed. You may refer <a class="reference external" href="https://docs.docker.com/engine/install/">Docer official documentation</a>, or directly run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">snap</span> <span class="pre">install</span> <span class="pre">docker</span></code> if you have followed our doc <a class="reference internal" href="../install/ubuntu.html#install-ubuntu"><span class="std std-ref">Install Kubeflow on Nimbus</span></a> to deploy Kubernetes cluster.</p></li>
+<li><p>(Optional) An external, production-ready PostgreSQL instance setup. This is optional, as the GitLab chart we would use in this guide already includes an in-cluster PostgreSQL deployment that is provided by <a class="reference external" href="https://artifacthub.io/packages/helm/bitnami/postgresql">bitnami/PostgreSQL</a> by default. This deployment, however, is for trial purposes only and not recommended for use in production.</p></li>
+<li><p>(Optional) An external, production-ready Redis instance setup. This is optional, as the GitLab chart we would use in this guide already includes an in-cluster Redis deployment that is provided by <a class="reference external" href="https://artifacthub.io/packages/helm/bitnami/redis">bitnami/Redis</a> by default. This deployment, however, is for trial purposes only and not recommended for use in production.</p></li>
+</ul>
+<h3 id="use-helm-chart-for-gitlab-deployment">Use Helm chart for Gitlab deployment<a class="headerlink" href="#use-helm-chart-for-gitlab-deployment" title="Permalink to this heading">¶</a></h3>
+<h4 id="add-gitlab-to-helm-repo">Add Gitlab to helm repo<a class="headerlink" href="#add-gitlab-to-helm-repo" title="Permalink to this heading">¶</a></h4>
+<p>After all <a class="reference internal" href="#prerequisites"><span class="std std-ref">Prerequisites</span></a> are fulfilled, we can start our Gitlab deployment on Kubernetes.</p>
+<p>First, add <code class="docutils literal notranslate"><span class="pre">gitlab</span></code> to <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">repo</span></code>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>add<span class="w"> </span>gitlab<span class="w"> </span>https://charts.gitlab.io/
+</code></pre></div>
+</div>
+<p>There may be some warnings, and this step can be skipped if you have already have <code class="docutils literal notranslate"><span class="pre">gitlab</span></code> in your <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">repo</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>WARNING: Kubernetes configuration file is group—readable. This is insecure. Location: /home/vmware/.kube/config
+WARNING: Kubernetes configuration file is world—readable. This is insecure. Location: /home/vmware/.kube/config
+&quot;gitlab&quot; already exists with the same configuration, skipping
+</code></pre></div>
+</div>
+<p>Update <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">repo</span></code> with above change.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>repo<span class="w"> </span>update
+</code></pre></div>
+</div>
+<p>And you should see successful message like below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>WARNING: Kubernetes configuration file is group—readable. This is insecure. Location: /home/vmware/.kube/config
+WARNING: Kubernetes configuration file is world—readable. This is insecure. Location: /home/vmware/.kube/config
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the &quot;spark—operator&quot; chart repository
+...Successfully got an update from the &quot;mlrun—ce&quot; chart repository
+...Successfully got an update from the &quot;gitlab&quot; chart repository
+Update Complete. *Happy Helming!*
+</code></pre></div>
+</div>
+<h4 id="configure-and-deploy"><span id="deploy"></span>Configure and deploy<a class="headerlink" href="#configure-and-deploy" title="Permalink to this heading">¶</a></h4>
+<p>Before deployment, you should make some decisions about how you will run GitLab. Options can be specified using Helm’s
+<code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">option.name=value</span></code> command-line option. This guide will cover required values and common options. For a complete list of
+options, read <a class="reference external" href="https://docs.gitlab.com/charts/installation/command-line-options.html">Installation command line options</a>.</p>
+<p>In this guide, we deploy Gitlab using following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>--install<span class="w"> </span>gitlab<span class="w"> </span>gitlab/gitlab<span class="w"> </span>--create-namespace<span class="w"> </span>--namespace<span class="o">=</span>gitlab<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--timeout<span class="w"> </span>600s<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>global.hosts.externalIP<span class="o">=</span>&lt;your_ingress_externalIP&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>global.hosts.domain<span class="o">=</span>&lt;your_ingress_externalIP&gt;.nip.io<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>certmanager-issuer.email<span class="o">=</span>admin@example.com<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>global.time_zone<span class="o">=</span>&lt;timezone_that_is_consistent_with_your_machine&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--set<span class="w"> </span>postgresql.image.tag<span class="o">=</span><span class="m">13</span>.6.0
+</code></pre></div>
+</div>
+<p>Note the following:</p>
+<ul class="simple">
+<li><p>All Helm commands are specified using Helm v3 syntax.</p></li>
+<li><p>Helm v3 requires that the release name be specified as a positional argument on the command line unless the <code class="docutils literal notranslate"><span class="pre">--generate-name</span></code> option is used.</p></li>
+<li><p>Helm v3 requires one to specify a duration with a unit appended to the value (e.g. <code class="docutils literal notranslate"><span class="pre">120s</span></code> = <code class="docutils literal notranslate"><span class="pre">2m</span></code> and <code class="docutils literal notranslate"><span class="pre">210s</span></code> = <code class="docutils literal notranslate"><span class="pre">3m30s</span></code>). The <code class="docutils literal notranslate"><span class="pre">--timeout</span></code> option is handled as the number of seconds without the unit specification.</p></li>
+<li><p>You need to use a valid external IP (in a valid range) for field <code class="docutils literal notranslate"><span class="pre">global.hosts.externalIP</span></code> and <code class="docutils literal notranslate"><span class="pre">global.hosts.domain</span></code>. These two fields are all required. (You may check <code class="docutils literal notranslate"><span class="pre">svc</span></code> and <code class="docutils literal notranslate"><span class="pre">ingress</span></code> using <code class="docutils literal notranslate"><span class="pre">[microk8s]</span> <span class="pre">kubectl</span></code> to get a valid range for the external IP. And make sure the ingress external IP for your Gitlab has not been used by other deployed apps. In my case, it is <code class="docutils literal notranslate"><span class="pre">10.64.140.46</span></code>.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">certmanager-issuer.email</span></code> field is required and it is used for root user login. You may customize the value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">global.time_zone</span></code> is not required and it has a default value <code class="docutils literal notranslate"><span class="pre">UTC</span></code>. It is mandatory that you make sure your deployed Gitlab time zone is consistent with the time zone of your machine. Otherwise, there may be a cookie issue which would cause <code class="docutils literal notranslate"><span class="pre">422</span></code> error code in later web UI accessing. (You may use <code class="docutils literal notranslate"><span class="pre">date</span></code> command to check your machine’s time zone.)</p></li>
+<li><p>You can also use <code class="docutils literal notranslate"><span class="pre">--version</span> <span class="pre">&lt;installation</span> <span class="pre">version&gt;</span></code> option if you would like to install a specific version of GitLab.</p></li>
+<li><p>Above command enables you to deploy <strong>enterprise</strong> version. If you would like to deploy a <strong>community</strong> version, add <code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">global.edition=ce</span></code>.</p></li>
+<li><p>In this guide, all related <code class="docutils literal notranslate"><span class="pre">pods</span></code>, <code class="docutils literal notranslate"><span class="pre">svc</span></code>, <code class="docutils literal notranslate"><span class="pre">deployment</span></code>, <code class="docutils literal notranslate"><span class="pre">ingress</span></code> would be in <code class="docutils literal notranslate"><span class="pre">gitlab</span></code> namespace. You may customize it.</p></li>
+<li><p>And example of above command <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">upgrade</span> <span class="pre">--install</span> <span class="pre">gitlab</span> <span class="pre">gitlab/gitlab</span> <span class="pre">--create-namespace</span> <span class="pre">--namespace=gitlab</span>&#160; <span class="pre">--timeout</span> <span class="pre">600s</span>&#160; <span class="pre">--set</span> <span class="pre">global.hosts.externalIP=10.64.140.46</span>&#160; <span class="pre">--set</span> <span class="pre">global.hosts.domain=10.64.140.46.nip.io</span>&#160;&#160; <span class="pre">--set</span> <span class="pre">certmanager-issuer.email=admin&#64;example.com</span>&#160;&#160;&#160; <span class="pre">--set</span> <span class="pre">global.time_zone=UTC</span>&#160; <span class="pre">--set</span> <span class="pre">postgresql.image.tag=13.6.0</span></code>.</p></li>
+</ul>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>If you have problems with configuring external IP and if you have followed our guide <a class="reference internal" href="../install/ubuntu.html#install-ubuntu"><span class="std std-ref">Install Kubeflow on Nimbus</span></a>, you may
+try following procedures.</p>
+<p>1. Check your step of setting DNS service in <a class="reference internal" href="../install/ubuntu.html#install-ubuntu"><span class="std std-ref">Install Kubeflow on Nimbus</span></a>. We have guided you to use command
+<code class="docutils literal notranslate"><span class="pre">microk8s</span> <span class="pre">enable</span> <span class="pre">dns</span> <span class="pre">storage</span> <span class="pre">ingress</span> <span class="pre">metallb:10.64.140.43-10.64.140.49</span></code>. And in that case, <code class="docutils literal notranslate"><span class="pre">10.64.140.43-10.64.140.49</span></code> would
+be the valid range of your deployed apps’ external IP.</p>
+<ol class="arabic simple" start="2">
+<li><p>Pick one in above range, such as <code class="docutils literal notranslate"><span class="pre">10.64.140.46</span></code>. Make sure your chosen IP has not been used by other deployed apps.</p></li>
+</ol>
+</div>
+<h3 id="monitor-the-deployment"><span id="id2"></span>Monitor the deployment<a class="headerlink" href="#monitor-the-deployment" title="Permalink to this heading">¶</a></h3>
+<p>Monitor the deployment process using following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>status<span class="w"> </span>gitlab
+</code></pre></div>
+</div>
+<p>And you should see messages like below after running above <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">upgrade</span> <span class="pre">--install</span></code> command:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>WARNING: Kubernetes configuration file is group—readable. This is insecure. Location: /home/vmware/.kube/config
+WARNING: Kubernetes configuration file is world—readable. This is insecure. Location: /home/vmware/.kube/config
+Release &quot;gitlab&quot; does not exist. Installing it now.
+NAME: gitlab
+LAST DEPLOYED: Tue Feb 21 20:36:04 2023
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+=== NOTICE
+The minimum required version of PostgreSQL is now 12. See https://gitlab.com/gitlab—org/charts/gitlab/—/blob/master/doc/installation/upgrade.md for more details.
+
+=== NOTICE
+You&#39;ve installed GitLab Runner without the ability to use &#39;docker in docker&#39;. The GitLab Runner chart (gitlab/gitlab—runner) is deployed without the &#39;privileged&#39; flag by default for security purposes. This can be changed by setting &#39;gitlab—runner.runners.privileged&#39; to &#39;true&#39;. Before doing so, please read the GitLab Runne r chart&#39;s documentation on why we chose not to enable this by default. See https://docs.gitlab.com/runner/install/kubernetes.html#running—docker—in—docker—containers—with—gitlab—runners Help us improve the installation experience, let us know how we did with a 1 minute survey:https://gitlab.fra1.qualtrics.com/jfe/form/SV_6kVqZANThUQ1bZb?installation=helm&amp;release=15-8
+
+=== NOTICE
+The in—chart NGINX Ingress Controller has the following requirements:
+    — Kubernetes version must be 1.19 or newer.
+    — Ingress objects must be in group/version &#39;networking.k8s.io/vl&#39;.
+
+=== NOTICE
+kas:
+    The configuration of &#39;gitlab.kas.privateApi.tls.enabled&#39; has moved. Please use &#39;global.kas.tls.enabled&#39; instead. Other components of the GitLab chart other than KAS also need to be configured to talk to KAS via TLS. With a global value the chart can take care of these configurations without the need for other specific values.
+</code></pre></div>
+</div>
+<p>Wait for a few minutes untill all required <code class="docutils literal notranslate"><span class="pre">pods</span></code>, <code class="docutils literal notranslate"><span class="pre">svc</span></code>, <code class="docutils literal notranslate"><span class="pre">deployment</span></code>, <code class="docutils literal notranslate"><span class="pre">ingress</span></code> are ready.</p>
+<p>Check all pods are ready:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>NAME                                                READY   STATUS      RESTARTS    AGE
+gitlab—shared—secrets-1—v3s—xtcxs                   0/1     Completed   0           56m
+gitlab—certmanager-57c4557849—h8lxc                 1/1     Running     0           2m4s
+gitlab—minio-864888b9fb—mdk5c                       1/1     Running     0           2m4s
+gitlab—certmanager—cainjector-74cbc84b8b-2ctpb      1/1     Running     0           2m4s
+gitlab—gitlab—exporter-746c7b88c6—f4skd             1/1     Running     0           2m4s
+gitlab—registry-5c666cb98—pgdgh                     1/1     Running     0           2m4s
+gitlab—postgresql-0                                 2/2     Running     0           2m3s
+gitlab—toolbox-8585c6f969—w2bgj                     1/1     Running     0           2m4s
+gitlab—redis—master-0                               2/2     Running     0           2m3s
+gitlab—minio—create—buckets-1—lxgm4                 0/1     Completed   0           2m3s
+gitlab—gitaly-0                                     1/1     Running     0           2m3s
+gitlab—gitlab—shell-5dc7bbdd7—q7ltn                 1/1     Running     0           2m2s
+gitlab—gitlab—shell-5dc7bbdd7—pl7hg                 1/1     Running     0           108s
+gitlab—certmanager—webhook-59d745756c—cwj9p         1/1     Running     0           2m3s
+gitlab—nginx—ingress—controller-6f97b6f7f7—p5jwm    1/1     Running     0           2m3s
+gitlab—nginx—ingress—controller-6f97b6f7f7—s41g4    1/1     Running     0           2m3s
+gitlab—prometheus—server-77b5cc946-4c4zh            2/2     Running     0           2m4s
+gitlab—issuer-1—xd9xx                               0/1     Completed   0           2m3s
+gitlab—kas-6dc76bbbdc-72v8k                         1/1     Running     0           2m4s
+gitlab—kas-6dc76bbbdc—tjw8s                         1/1     Running     0           108s
+gitlab—registry-5c666cb98—cxjzx                     1/1     Running     0           107s
+gitlab—sidekiq—all—in-1—v2-75987bd8f4—q47dr         1/1     Running     0           2m1s
+gitlab—webservice—default—f5f975796—c5848           2/2     Running     0           2m3s
+gitlab—migrations-1—x64kq                           0/1     Completed   2           2m3s
+gitlab—webservice—default—f5f975796—ggd4k           2/2     Running     0           109s
+</code></pre></div>
+</div>
+<p>Check all services are there:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>NAME                                       TYPE            CLUSTER—IP          EXTERNAL—IP     PORT(S)                                     AGE
+kubernetes                                 ClusterlP       10.152.183.1        &lt;none&gt;          443/TCP                                     21d
+gitlab—gitaly                              ClusterlP       None                &lt;none&gt;          8075/TCP,9236/TCP                           118s
+gitlab—redis—headless                      ClusterlP       None                &lt;none&gt;          6379/TCP                                    118s
+gitlab—postgresql—headless                 ClusterlP       None                &lt;none&gt;          5432/TCP                                    118s
+gitlab—registry                            ClusterlP       10.152.183.37       &lt;none&gt;          5000/TCP                                    118s
+gitlab—certmanager—webhook                 ClusterlP       10.152.183.168      &lt;none&gt;          443/TCP                                     117s
+gitlab—kas                                 ClusterlP       10.152.183.35       &lt;none&gt;          8150/TCP,8153/TCP,8154/TCP,8151/TCP         117s
+gitlab—gitlab—exporter                     ClusterlP       10.152.183.150      &lt;none&gt;          9168/TCP                                    117s
+gitlab—gitlab—shell                        ClusterlP       10.152.183.141      &lt;none&gt;          22/TCP                                      117s
+gitlab—nginx—ingress—controller—metrics    ClusterlP       10.152.183.136      &lt;none&gt;          10254/TCP                                   117s
+gitlab—minio—svc                           ClusterlP       10.152.183.4        &lt;none&gt;          9000/TCP                                    117s
+gitlab—certmanager                         ClusterlP       10.152.183.113      &lt;none&gt;          9402/TCP                                    117s
+gitlab—postgresql                          ClusterlP       10.152.183.176      &lt;none&gt;          5432/TCP                                    117s
+gitlab—webservice—default                  ClusterlP       10.152.183.92       &lt;none&gt;          8080/TCP,8181/TCP,8083/TCP                  117s
+gitlab—postgresql—metrics                  ClusterlP       10.152.183.66       &lt;none&gt;          9187/TCP                                    117s
+gitlab—redis—metrics                       ClusterlP       10.152.183.138      &lt;none&gt;          9121/TCP                                    117s
+gitlab—redis—master                        ClusterlP       10.152.183.79       &lt;none&gt;          6379/TCP                                    117s
+gitlab—prometheus—server                   ClusterlP       10.152.183.11       &lt;none&gt;          80/TCP                                      117s
+gitlab—nginx—ingress—controller            LoadBalancer    10.152.183.137      10.64.140.46    80:32031/TCP,443:30751/TCP,22:31275/TCP     117s
+</code></pre></div>
+</div>
+<p>Check all ingress are on:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>NAME                        CLASS           HOSTS                           ADDRESS         PORTS       AGE
+gitlab—registry             gitlab—nginx    registry.10.64.140.46.nip.io    10.64.140.46    80, 443     66s
+gitlab—webservice—default   gitlab—nginx    gitlab.10.64.140.46.nip.io      10.64.140.46    80, 443     66s
+gitlab—minio                gitlab—nginx    minio.10.64.140.46.nip.io       10.64.140.46    80, 443     66s
+gitlab—kas                  gitlab—nginx    kas.10.64.140.46.nip.io         10.64.140.46    80, 443     66s
+</code></pre></div>
+</div>
+<p>Check all deployments are ready:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>NAME                            READY   UP—TO—DATE  AVAILABLE   AGE
+gitlab—prometheus—server        1/1     1           1           13h
+gitlab—gitlab—exporter          1/1     1           1           13h
+gitlab—minio                    1/1     1           1           13h
+gitlab—certmanager              1/1     1           1           13h
+gitlab—certmanager—cainjector   1/1     1           1           13h
+gitlab—toolbox                  1/1     1           1           13h
+gitlab—nginx—ingress—controller 2/2     2           2           13h
+gitlab—certmanager—webhook      1/1     1           1           13h
+gitlab—gitlab—shell             2/2     2           2           13h
+gitlab—registry                 2/2     2           2           13h
+gitlab—kas                      2/2     2           2           13h
+gitlab—sidekiq—all—in-1—v2      1/1     1           1           13h
+gitlab—webservice—default       2/2     2           2           13h
+</code></pre></div>
+</div>
+<h3 id="access-gitlab-web-ui"><span id="id3"></span>Access Gitlab web UI<a class="headerlink" href="#access-gitlab-web-ui" title="Permalink to this heading">¶</a></h3>
+<p>If you did not manually set root initial password, you need to first get the password for initial login.  GitLab automatically
+created a random password for root user. This can be extracted by the following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>&lt;name_of_release&gt;-gitlab-initial-root-password<span class="w"> </span>-n<span class="w"> </span>gitlab<span class="w"> </span>-ojsonpath<span class="o">=</span><span class="s1">&#39;{.data.password}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>--decode<span class="w"> </span><span class="p">;</span><span class="w"> </span><span class="nb">echo</span>
+</code></pre></div>
+</div>
+<p>If you use above commands, the <code class="docutils literal notranslate"><span class="pre">&lt;name_of_release&gt;</span></code> would be <code class="docutils literal notranslate"><span class="pre">gitlab</span></code>. And if you did not use namespace <code class="docutils literal notranslate"><span class="pre">gitlab</span></code>, remember to change it in above command.</p>
+<p>An example would be <code class="docutils literal notranslate"><span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">secret</span> <span class="pre">gitlab-gitlab-initial-root-password</span> <span class="pre">-n</span> <span class="pre">gitlab</span> <span class="pre">-ojsonpath='{.data.password}'</span> <span class="pre">|</span> <span class="pre">base64</span> <span class="pre">--decode</span> <span class="pre">;</span> <span class="pre">echo</span></code>.</p>
+<p>Copy the password.</p>
+<p>Open you browswer, and go to the Gitlab web UI using the <code class="docutils literal notranslate"><span class="pre">domain</span></code> we set above <code class="docutils literal notranslate"><span class="pre">https://gitlab.&lt;domain&gt;</span></code>, i.e.
+<code class="docutils literal notranslate"><span class="pre">https://gitlab.&lt;your_ingress_externalIP&gt;.nip.io</span></code>. (For example, <code class="docutils literal notranslate"><span class="pre">https://gitlab.10.64.140.46.nip.io</span></code>.)</p>
+<p>And you should see following login page:</p>
+<img alt="../_images/integration-gitlab-login.png" src="../_images/integration-gitlab-login.png" />
+<p>Enter the email using <code class="docutils literal notranslate"><span class="pre">certmanager-issuer.email</span></code> we previously set in <a class="reference internal" href="#deploy"><span class="std std-ref">Configure and deploy</span></a>. And enter the password using either you manually
+set one or the one we get from <code class="docutils literal notranslate"><span class="pre">secret</span></code>.</p>
+<p>Click “Sign in”, and you should be located to home page:</p>
+<img alt="../_images/integration-gitlab-home.png" src="../_images/integration-gitlab-home.png" />
+<h2 id="setup-ssh-key-for-projects-cloning-and-pulling"><span id="setup-ssh-key"></span>Setup SSH key for projects cloning and pulling<a class="headerlink" href="#setup-ssh-key-for-projects-cloning-and-pulling" title="Permalink to this heading">¶</a></h2>
+<p>As we are now able to access Gitlab through web UI, it is time to prepare our Gitlab for one of the main usages: clone and pull projects.</p>
+<p>For privacy protection and safety, and to avoid certificate validation issues, we suggest you clone and pull projects with <strong>SSH</strong>.</p>
+<h3 id="generate-a-new-ssh-key">Generate a new SSH key<a class="headerlink" href="#generate-a-new-ssh-key" title="Permalink to this heading">¶</a></h3>
+<p>First, generate a new SSH key on your machine. If you follow our doc to deploy Kubernetes and Gitlab, you should here generate the SSH key on your virtual machine.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-C<span class="w"> </span>&lt;your_gitlab_account_email&gt;
+</code></pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>Above email should be the one that is linked with the Gitlab account that you are planning to clone/pull projects from. For example, if you plan to have your projects in the root Gitlab account, and clone/pull those projects, above email should be “<a class="reference external" href="mailto:admin&#37;&#52;&#48;example&#46;com">admin<span>&#64;</span>example<span>&#46;</span>com</a>”, the one we set in <code class="docutils literal notranslate"><span class="pre">certmanager-issuer.email</span></code> field in <a class="reference internal" href="#deploy"><span class="std std-ref">Configure and deploy</span></a>.</p>
+</div>
+<p>And you should see outputs like below:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><code>Generating public/private rsa key pair.
+Enter file in which to save the key (/home/vmware/.ssh/id_rsa): &lt;press_enter_for_default_save_path&gt;
+Enter passphrase (empty for no passphrase): &lt;press_enter_for_empty_or_enter_your_passphrase&gt;
+Enter same passphrase again: &lt;press_enter_for_empty_or_enter_your_passphrase_again&gt;
+Your identification has been saved in /home/vmware/.ssh/id_ed25519
+Your public key has been saved in /home/vmware/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx &lt;your_email&gt;
+The key&#39;s randomart image is:
++---[RSA 4096]----+
+|      E o+X +=o =|
+|       B % B.+o+.|
+|        O X B .  |
+|       . o * * o |
+|        S   o * o|
+|           . = +.|
+|            o =. |
+|             o.  |
+|            ..   |
++----[SHA256]-----+
+</code></pre></div>
+</div>
+<p>For questions about passphrase, please refer to <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases">Github official documentation</a>.</p>
+<h3 id="add-your-ssh-key">Add your SSH key<a class="headerlink" href="#add-your-ssh-key" title="Permalink to this heading">¶</a></h3>
+<p>In the command execution output above, you can see the saved place of the public key. In above case, it is <code class="docutils literal notranslate"><span class="pre">/home/vmware/.ssh/id_rsa.pub</span></code>. Remember to change it in
+to your own saved file in following commands.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cat</span></code> the SSH key fingerprint.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>cat<span class="w"> </span>/home/vmware/.ssh/id_ed25519.pub
+</code></pre></div>
+</div>
+<p>Copy the SSH key fingerprint.</p>
+<p>Go to Gilab in your browser. Click the account icon in the right-top cornor. And go to “Edit profile”.</p>
+<img alt="../_images/integration-gitlab-editProfile.png" src="../_images/integration-gitlab-editProfile.png" />
+<p>Click “SSH Keys” in left panel (“User Settings”). And copy your newly generated SSH key fingerprint to the box. Set the title, usage
+type, and expiration date.</p>
+<p>Click “Add key”.</p>
+<img alt="../_images/integration-gitlab-addKey.png" src="../_images/integration-gitlab-addKey.png" />
+<p>A successfully added SSH key should be like below:</p>
+<img alt="../_images/integration-gitlab-keyAdded.png" src="../_images/integration-gitlab-keyAdded.png" />
+<p>For more information about SSH keys, please refer to <a class="reference external" href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh">Github official documentation</a>.</p>
+<p>Now, you can clone/pull projects with SSH.</p>
+<img alt="../_images/integration-gitlab-cloneSSH.png" src="../_images/integration-gitlab-cloneSSH.png" />
+<h2 id="authentication-and-authorization">Authentication and authorization<a class="headerlink" href="#authentication-and-authorization" title="Permalink to this heading">¶</a></h2>
+<p>GitLab can integrate with a number of OmniAuth providers and external authentication and authorization providers. In this documentation,
+we would introduce you to how to integrate your deployed Gitlab with:</p>
+<ul class="simple">
+<li><p>LDAP (an external authentication provider)</p></li>
+<li><dl class="simple">
+<dt>OIDC (OmniAuth providers)</dt><dd><ul>
+<li><p>Gitlab</p></li>
+<li><p><strong>TODO</strong></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<h3 id="integrate-ldap">Integrate LDAP<a class="headerlink" href="#integrate-ldap" title="Permalink to this heading">¶</a></h3>
+<p>GitLab integrates with <a class="reference external" href="https://en.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol">LDAP (Lightweight Directory Access Protocol)</a>
+to support user authentication. This integration works with most LDAP-compliant directory servers, including:</p>
+<ul class="simple">
+<li><p>Microsoft Active Directory</p></li>
+<li><p>Apple Open Directory</p></li>
+<li><p>Open LDAP</p></li>
+<li><p>389 Server</p></li>
+</ul>
+<div class="attention admonition">
+<p class="admonition-title">Attention</p>
+<p>GitLab does not support <a class="reference external" href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc771568(v=ws.10)">Microsoft Active Directory Trusts</a>.</p>
+</div>
+<p>Users added through LDAP can authenticate with Git using their LDAP username and password. The LDAP DN (distinguished name) is associated with
+existing GitLab users when:</p>
+<ul class="simple">
+<li><p>The existing user signs in to GitLab with LDAP for the first time.</p></li>
+<li><p>The LDAP email address is the primary email address of an existing GitLab user. If the LDAP email attribute is not found in the GitLab user database, a new user is created.</p></li>
+</ul>
+<p>If an existing GitLab user wants to enable LDAP sign-in for themselves, they should:</p>
+<ol class="arabic simple">
+<li><p>Check that their GitLab email address matches their LDAP email address.</p></li>
+<li><p>Sign in to GitLab by using their LDAP credentials (username/password).</p></li>
+</ol>
+<h4 id="id4">Prerequisites<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h4>
+<p>Make sure below prerequisites are satisfied before moving on.</p>
+<ul class="simple">
+<li><p>A setup LDAP server.</p></li>
+</ul>
+<h4 id="configure-gitlab-for-ldap">Configure Gitlab for LDAP<a class="headerlink" href="#configure-gitlab-for-ldap" title="Permalink to this heading">¶</a></h4>
+<p>We would assume you deploy Gitlab using Helm chart, as guided in <a class="reference internal" href="#deploy-gitlab-on-k8s"><span class="std std-ref">Deploy Gitlab on Kubernetes</span></a>.</p>
+<p>First, export the Helm values to get the configurations of our previously deployed Gitlab.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>get<span class="w"> </span>values<span class="w"> </span>gitlab<span class="w"> </span>&gt;<span class="w"> </span>gitlab_values.yaml
+</code></pre></div>
+</div>
+<p>Now we have the configurations of our previously deployed Gitlab in file <code class="docutils literal notranslate"><span class="pre">gitlab_values.yaml</span></code>. Edit this file to add LDAP configuration.
+Note that the LDAP configuration is mainly in <code class="docutils literal notranslate"><span class="pre">appConfig.ldap</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">USER-SUPPLIED VALUES</span><span class="p">:</span>
+<span class="nt">certmanager-issuer</span><span class="p">:</span>
+<span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin@example.com</span>
+<span class="nt">global</span><span class="p">:</span>
+<span class="nt">appConfig</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ldap</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">allow_username_or_email_login</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">preventSignin</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">servers</span><span class="p p-Indicator">:</span>
+<span class="w">        </span><span class="nt">main</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LDAP</span>
+<span class="w">          </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.117.0.26</span>
+<span class="w">          </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">636</span>
+<span class="w">          </span><span class="nt">base</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dc=vmware,dc=com</span>
+<span class="w">          </span><span class="nt">encryption</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple_tls</span>
+<span class="w">          </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">uid</span>
+<span class="w">          </span><span class="nt">verify_certificates</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">hosts</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.64.140.46.nip.io</span>
+<span class="w">  </span><span class="nt">externalIP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.64.140.46</span>
+<span class="nt">time_zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UTC</span>
+<span class="nt">postgresql</span><span class="p">:</span>
+<span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">13.6.0</span>
+</code></pre></div>
+</div>
+<p>Following configuration settings are noted here:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">allow_username_or_email_login</span></code>: If enabled, GitLab ignores everything after the first <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> in the LDAP username submitted by the user on sign-in. If you are using <code class="docutils literal notranslate"><span class="pre">uid:</span> <span class="pre">'userPrincipalName'</span></code> on <code class="docutils literal notranslate"><span class="pre">ActiveDirectory</span></code> you must disable this setting because the <code class="docutils literal notranslate"><span class="pre">userPrincipalName</span></code> contains an <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preventSignin</span></code>: <em>Disable it to allow users sign in using LDAP credentials through web UI.</em> Sometimes, people prefer to prevent using LDAP credentials through the web UI when an alternative such as SAML is available. If that is the case, <code class="docutils literal notranslate"><span class="pre">preventSignin</span></code> field should be set to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label</span></code>: REQUIRED. A human-friendly name for your LDAP server. It is displayed on your sign-in page.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">host</span></code>: REQUIRED. IP address or domain name of your LDAP server. Ignored when hosts is defined. <em>The above configuration uses the IP of a LDAP server setup internally in VMware. You may change it.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">port</span></code>: REQUIRED. The port to connect with on your LDAP server. Always an integer, not a string. Two commonly used ports are <code class="docutils literal notranslate"><span class="pre">389</span></code> and <code class="docutils literal notranslate"><span class="pre">636</span></code> (for SSL). Ignored when hosts is defined. <em>You may need to use HTTPS, and therefore 636 is used in above configuration.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">base</span></code>: REQUIRED. Base where we can search for users. <em>You should get this value based on the setting details of your LDAP server.</em></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">encryption</span></code>: REQUIRED. Encryption method. Usually, <code class="docutils literal notranslate"><span class="pre">simple_tls</span></code> is used for port <code class="docutils literal notranslate"><span class="pre">636</span></code> while <code class="docutils literal notranslate"><span class="pre">plain</span></code> is used for port <code class="docutils literal notranslate"><span class="pre">389</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">uid</span></code>: REQUIRED. The LDAP attribute that maps to the username that users use to sign in. Should be the attribute, not the value that maps to the <code class="docutils literal notranslate"><span class="pre">uid</span></code>. Does not affect the GitLab username.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">verify_certificates</span></code>: Enables SSL certificate verification if encryption method is <code class="docutils literal notranslate"><span class="pre">start_tls</span></code> or <code class="docutils literal notranslate"><span class="pre">simple_tls</span></code>. If set to false, no validation of the LDAP server’s SSL certificate is performed. Defaults to true.</p></li>
+</ul>
+<p>To view more configuration setting and attribute information, please refer to official documentations on
+<a class="reference external" href="https://docs.gitlab.com/ee/administration/auth/ldap/?tab=Helm+chart+%28Kubernetes%29#basic-configuration-settings">configuration settings</a>
+and <a class="reference external" href="https://docs.gitlab.com/ee/administration/auth/ldap/?tab=Helm+chart+%28Kubernetes%29#attribute-configuration-settings">attributes</a>.</p>
+<p>Save the changes in <code class="docutils literal notranslate"><span class="pre">gitlab_values.yaml</span></code>. And apply these changes to upgrade the Gitlab.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>-f<span class="w"> </span>gitlab_values.yaml<span class="w"> </span>gitlab<span class="w"> </span>gitlab/gitlab
+</code></pre></div>
+</div>
+<p>This may take some time. Please wait patiently.</p>
+<h4 id="sign-in-through-ldap"><span id="ldap-signin"></span>Sign in through LDAP<a class="headerlink" href="#sign-in-through-ldap" title="Permalink to this heading">¶</a></h4>
+<p>After successfully upgrading the Gitlab and integrating the LDAP configurations, first double check if all pods, services, deployments, and
+ingresses are on and ready, as discussed in <a class="reference internal" href="#monitor-the-deployment"><span class="std std-ref">Monitor the deployment</span></a>.</p>
+<div class="important admonition">
+<p class="admonition-title">Important</p>
+<p>Some pods (such as <code class="docutils literal notranslate"><span class="pre">webservices</span></code>) may need some time to integrate those changes. Please wait patiently and make sure everything is ready.</p>
+</div>
+<p>Go to Gitlab web UI. Now, you should be able to see LDAP sign in.</p>
+<img alt="../_images/integration-gitlab-ldapSignin.png" src="../_images/integration-gitlab-ldapSignin.png" />
+<p>Sign in with your LDAP credential.</p>
+<div class="important admonition">
+<p class="admonition-title">Important</p>
+<p>In this guide, we use the LDAP server setup VMware internally setup. So the username and password is directly our company username/password.
+If you use a different LDAP server, such as a LDAP server you setup on your own, you should check your own LDAP credential.</p>
+</div>
+<p>Sometimes, based on your own settings, you may encounter message saying that your <em>signin is in pending status as Administrator/Admin’s approval
+is needed</em>. If that is your case, sign in the root account through “Standard” sign in, using the email we configured in <a class="reference internal" href="#deploy"><span class="std std-ref">Configure and deploy</span></a> and
+password we get in <a class="reference internal" href="#access-gitlab-web-ui"><span class="std std-ref">Access Gitlab web UI</span></a>.</p>
+<img alt="../_images/integration-gitlab-rootSignin.png" src="../_images/integration-gitlab-rootSignin.png" />
+<p>Click on the menu bar on left-top cornor, next to the Gitlab logo. And click “Admin”.</p>
+<img alt="../_images/integration-gitlab-admin.png" src="../_images/integration-gitlab-admin.png" />
+<p>Click “Users” in the left panel. And go to “Pending approval” to see users that needs approval from Admin.</p>
+<img alt="../_images/integration-gitlab-pending.png" src="../_images/integration-gitlab-pending.png" />
+<p>Approve your LDAP user.</p>
+<p>Sign out the root account, and re-login using your LDAP credential. This time, you should be all set!</p>
+<h4 id="configure-ldap-initially-during-installation">Configure LDAP initially during installation<a class="headerlink" href="#configure-ldap-initially-during-installation" title="Permalink to this heading">¶</a></h4>
+<p>You can also configure LDAP in initial <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">install</span></code> command. Below is an example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>--install<span class="w"> </span>gitlab<span class="w"> </span>gitlab/gitlab<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--timeout<span class="w"> </span>600s<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.hosts.externalIP<span class="o">=</span><span class="s1">&#39;10.64.140.46&#39;</span><span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.hosts.domain<span class="o">=</span><span class="s1">&#39;10.64.140.46.nip.io&#39;</span><span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>postgresql.image.tag<span class="o">=</span><span class="s1">&#39;13.6.0&#39;</span><span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.time_zone<span class="o">=</span><span class="s1">&#39;UTC&#39;</span><span class="w">  </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>certmanager-issuer.email<span class="o">=</span><span class="s1">&#39;admin@example.com&#39;</span><span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.servers.main.label<span class="o">=</span><span class="s1">&#39;LDAP&#39;</span><span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.servers.main.host<span class="o">=</span><span class="s1">&#39;10.117.0.26&#39;</span><span class="w">    </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.servers.main.port<span class="o">=</span><span class="s1">&#39;636&#39;</span><span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.servers.main.uid<span class="o">=</span><span class="s1">&#39;uid&#39;</span><span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.servers.main.base<span class="o">=</span><span class="s1">&#39;dc=vmware\,dc=com&#39;</span><span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.servers.main.encryption<span class="o">=</span><span class="s1">&#39;simple_tls&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.servers.main.verify_certificates<span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.preventSignin<span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="w">  </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.ldap.allow_username_or_email_login<span class="o">=</span><span class="s1">&#39;false&#39;</span>
+</code></pre></div>
+</div>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>For details about gitlab configuration, refer to <a class="reference internal" href="#deploy"><span class="std std-ref">Configure and deploy</span></a>.</p>
+</div>
+<h3 id="integrate-oidc-github">Integrate OIDC: Github<a class="headerlink" href="#integrate-oidc-github" title="Permalink to this heading">¶</a></h3>
+<p>GitLab can use <a class="reference external" href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect (OIDC)</a> as an OmniAuth provider.</p>
+<p>To enable the OpenID Connect OmniAuth provider, you must register your application with an OpenID Connect provider. The OpenID Connect
+provides you with a client’s details and secret for you to use.</p>
+<p>In this section, we would introduce how to use Github as an OIDC provider and integrate it with Gitlab.</p>
+<h4 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this heading">¶</a></h4>
+<p>Make sure following prerequisites are satisfied before moving on.</p>
+<ul class="simple">
+<li><p>A <a class="reference external" href="https://github.com/">Github</a> account.</p></li>
+</ul>
+<h4 id="create-a-github-oauth-app">Create a Github OAuth app<a class="headerlink" href="#create-a-github-oauth-app" title="Permalink to this heading">¶</a></h4>
+<p>We first create an OAuth app in Github.</p>
+<p>Go to <a class="reference external" href="https://github.com/">Github</a>. Sign in to your Github account. Click on your accont icon on right-top corner. And click “Settings”.</p>
+<img alt="../_images/integration-gitlab-githubSettings.png" src="../_images/integration-gitlab-githubSettings.png" />
+<p>On the left panel, scroll down to the bottom, and click “Developer settings”.</p>
+<img alt="../_images/integration-gitlab-developerSetting.png" src="../_images/integration-gitlab-developerSetting.png" />
+<p>On the left panel, click “OAuth Apps”. And click “New OAuth App”.</p>
+<img alt="../_images/integration-gitlab-newApp.png" src="../_images/integration-gitlab-newApp.png" />
+<p>Enter an application name.</p>
+<p>For the “Homepage URL”, enter the <strong>URL of your deployed Gitlab</strong>, i.e. <code class="docutils literal notranslate"><span class="pre">https://gitlab.&lt;external_ip&gt;.nip.io</span></code> if you deployed Gitlab
+following our guide <a class="reference internal" href="#deploy-gitlab-on-k8s"><span class="std std-ref">Deploy Gitlab on Kubernetes</span></a>.</p>
+<p>For the “Authorization callback URL”, the format, by default, should be <code class="docutils literal notranslate"><span class="pre">https://&lt;app_url&gt;/users/auth/&lt;openid_connect&gt;/callback</span></code>.
+<code class="docutils literal notranslate"><span class="pre">&lt;app_url&gt;</span></code> should be the URL of your deployed Gitlab. And the <code class="docutils literal notranslate"><span class="pre">&lt;openid_connect&gt;</span></code>, in our case, should be <code class="docutils literal notranslate"><span class="pre">github</span></code>.</p>
+<img alt="../_images/integration-gitlab-createApp.png" src="../_images/integration-gitlab-createApp.png" />
+<p>Click “Register application”.</p>
+<p>You should be able to see your registered OAuth App then.</p>
+<img alt="../_images/integration-gitlab-app.png" src="../_images/integration-gitlab-app.png" />
+<h4 id="get-oauth-app-id-and-secret">Get OAuth App ID and secret<a class="headerlink" href="#get-oauth-app-id-and-secret" title="Permalink to this heading">¶</a></h4>
+<p>Click on your App.</p>
+<p>You should be able to directly see your <strong>Client ID</strong>. Save this client ID. This would be used later.</p>
+<p>To get your <strong>Client secret</strong> if you do not have one, click on “Generate a new client secret”. Save this client secret. This would be
+used later.</p>
+<img alt="../_images/integration-gitlab-id.png" src="../_images/integration-gitlab-id.png" />
+<h4 id="create-a-secret-for-github-oauth-configuration"><span id="create-secret"></span>Create a secret for Github OAuth configuration<a class="headerlink" href="#create-a-secret-for-github-oauth-configuration" title="Permalink to this heading">¶</a></h4>
+<p>As our Github OAuth App is ready, we can now configure this OIDC provider.</p>
+<p>Create a YAML file called. You may name it <code class="docutils literal notranslate"><span class="pre">provider.yaml</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span>
+<span class="nt">label</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Github</span>
+<span class="nt">app_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Github_OAuth_App_Client_ID&gt;</span>
+<span class="nt">app_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;Github_OAuth_App_Client_Secret&gt;</span>
+<span class="nt">args</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;user:email&quot;</span>
+</code></pre></div>
+</div>
+<p>Create a secret for this provider configuration.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>microk8s<span class="w"> </span>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>-n<span class="w"> </span>&lt;NAMESPACE&gt;<span class="w"> </span>&lt;SECRET_NAME&gt;<span class="w"> </span>--from-file<span class="o">=</span><span class="nv">provider</span><span class="o">=</span>&lt;YAML_FILE_NAME&gt;
+</code></pre></div>
+</div>
+<p>An example of above command can be <code class="docutils literal notranslate"><span class="pre">microk8s</span> <span class="pre">kubectl</span> <span class="pre">create</span> <span class="pre">secret</span> <span class="pre">generic</span> <span class="pre">-n</span> <span class="pre">default</span> <span class="pre">gitlab-oidc-github</span> <span class="pre">--from-file=provider=provider.yaml</span></code>.</p>
+<h4 id="configure-gitlab-for-github-as-oidc-provider">Configure Gitlab for Github as OIDC provider<a class="headerlink" href="#configure-gitlab-for-github-as-oidc-provider" title="Permalink to this heading">¶</a></h4>
+<p>We can now configure our Gitlab to integrate Github as OIDC provider.</p>
+<p>Export Gitlab configurations. <em>You may skip this command if you have already done so.</em></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>get<span class="w"> </span>values<span class="w"> </span>gitlab<span class="w"> </span>&gt;<span class="w"> </span>gitlab_values.yaml
+</code></pre></div>
+</div>
+<p>The configuration values of your Gitlab is now saved in <code class="docutils literal notranslate"><span class="pre">gitlab_values.yaml</span></code>. We need to edit this file to add configurations for
+Github as OIDC provider. Changes are mainly in <code class="docutils literal notranslate"><span class="pre">appConfig.omniauth</span></code>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">USER-SUPPLIED VALUES</span><span class="p">:</span>
+<span class="nt">certmanager-issuer</span><span class="p">:</span>
+<span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin@example.com</span>
+<span class="nt">global</span><span class="p">:</span>
+<span class="nt">appConfig</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">omniauth</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">allowSingleSignOn</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">github</span>
+<span class="w">    </span><span class="nt">autoLinkLdapUser</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">providers</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">provider</span>
+<span class="w">        </span><span class="nt">secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gitlab-oidc-github</span>
+<span class="nt">hosts</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.64.140.46.nip.io</span>
+<span class="w">  </span><span class="nt">externalIP</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.64.140.46</span>
+<span class="nt">time_zone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UTC</span>
+<span class="nt">postgresql</span><span class="p">:</span>
+<span class="nt">image</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tag</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">13.6.0</span>
+</code></pre></div>
+</div>
+<p>A few things are noted here:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">allowSingleSignOn</span></code>: Enable the automatic creation of accounts when signing in with OmniAuth. Input the name of the OmniAuth Provider. <em>In this case, it would be github</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">autoLinkLdapUser</span></code>: Can be used if you have LDAP/ActiveDirectory integration enabled. When enabled, users automatically created through OmniAuth will be linked to their LDAP entry as well. <em>You may change above to true. Above is set for testing purpose.</em></p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">providers</span></code>: <code class="docutils literal notranslate"><span class="pre">providers</span></code> is presented as an array of maps. See GitLab documentation for the available selection of <a class="reference external" href="https://docs.gitlab.com/ee/integration/omniauth.html#supported-providers">Supported Providers</a>. This property has two sub-keys: <code class="docutils literal notranslate"><span class="pre">secret</span></code> and <code class="docutils literal notranslate"><span class="pre">key</span></code>.</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: Optional. The name of the key in the <code class="docutils literal notranslate"><span class="pre">secret</span></code> containing the provider block generated in <a class="reference internal" href="#create-secret"><span class="std std-ref">Create a secret for Github OAuth configuration</span></a>. Defaults to <code class="docutils literal notranslate"><span class="pre">provider</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">secret</span></code>: REQUIRED. The name of the Kubernetes <code class="docutils literal notranslate"><span class="pre">secret</span></code> containing the provider block generated in <a class="reference internal" href="#create-secret"><span class="std std-ref">Create a secret for Github OAuth configuration</span></a>. In above secret generating example command, we set the name as <code class="docutils literal notranslate"><span class="pre">gitlab-oidc-github</span></code>. <strong>You may need to change it based on your own case.</strong></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Save the changes in <code class="docutils literal notranslate"><span class="pre">gitlab_values.yaml</span></code>. And apply these changes to upgrade the Gitlab.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>-f<span class="w"> </span>gitlab_values.yaml<span class="w"> </span>gitlab<span class="w"> </span>gitlab/gitlab
+</code></pre></div>
+</div>
+<p>This may take some time. Please wait patiently.</p>
+<h4 id="sign-in-with-github">Sign in with Github<a class="headerlink" href="#sign-in-with-github" title="Permalink to this heading">¶</a></h4>
+<p>After successfully upgrading the Gitlab and integrating the LDAP configurations, first double check if all pods, services, deployments, and
+ingresses are on and ready, as discussed in <a class="reference internal" href="#monitor-the-deployment"><span class="std std-ref">Monitor the deployment</span></a>.</p>
+<div class="important admonition">
+<p class="admonition-title">Important</p>
+<p>Some pods (such as <code class="docutils literal notranslate"><span class="pre">webservices</span></code>) may need some time to integrate those changes. Please wait patiently and make sure everything is ready.</p>
+</div>
+<p>Go to Gitlab web UI. Now, you should be able to see Github sign in.</p>
+<img alt="../_images/integration-gitlab-githubSignin.png" src="../_images/integration-gitlab-githubSignin.png" />
+<p>Click on it. And you should be directed to <em>Github sign in page</em>.</p>
+<p>Enter your <em>Github sign in credentials</em>. And <em>authorize Gitlab to use Github for sign in</em>.</p>
+<div class="important admonition">
+<p class="admonition-title">Important</p>
+<p>If you set <code class="docutils literal notranslate"><span class="pre">autoLinkLdapUser</span></code> to be <code class="docutils literal notranslate"><span class="pre">false</span></code> in above configuration, here you may need to use Github with a different email as the
+one used for LDAP. Otherwise, you may encounter message saying that <code class="docutils literal notranslate"><span class="pre">Email</span> <span class="pre">already</span> <span class="pre">exists.</span> <span class="pre">Recover</span> <span class="pre">your</span> <span class="pre">password</span></code>.</p>
+</div>
+<p>After entering your Github login credentials and authorizing, you should come to Gitlab home page. If you encounter message saying that
+<em>signin is in pending status as Administrator/Admin’s approval is needed</em>, please refer to <a class="reference internal" href="#ldap-signin"><span class="std std-ref">Sign in through LDAP</span></a> for detailed instruction.</p>
+<h4 id="configure-github-oidc-initially-during-installation">Configure Github OIDC initially during installation<a class="headerlink" href="#configure-github-oidc-initially-during-installation" title="Permalink to this heading">¶</a></h4>
+<p>You can also configure Github as OIDC provider in initial <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">install</span></code> command. Below is an example:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>upgrade<span class="w"> </span>--install<span class="w"> </span>gitlab<span class="w"> </span>gitlab/gitlab<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--timeout<span class="w"> </span>600s<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.hosts.externalIP<span class="o">=</span><span class="m">10</span>.64.140.46<span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.hosts.domain<span class="o">=</span><span class="m">10</span>.64.140.46.nip.io<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>postgresql.image.tag<span class="o">=</span><span class="m">13</span>.6.0<span class="w">   </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.time_zone<span class="o">=</span>UTC<span class="w">  </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>certmanager-issuer.email<span class="o">=</span>admin@example.com<span class="w">     </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.omniauth.enabled<span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.omniauth.allowSingleSignOn<span class="o">[</span><span class="m">0</span><span class="o">]=</span><span class="s1">&#39;github&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.omniauth.autoLinkLdapUser<span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.omniauth.providers<span class="o">[</span><span class="m">0</span><span class="o">]</span>.secret<span class="o">=</span>gitlab-oidc-github<span class="w"> </span><span class="se">\</span>
+<span class="w">        </span>--set<span class="w"> </span>global.appConfig.omniauth.providers<span class="o">[</span><span class="m">0</span><span class="o">]</span>.key<span class="o">=</span>provider
+</code></pre></div>
+</div>
+<h2 id="uninstall-gitlab">Uninstall Gitlab<a class="headerlink" href="#uninstall-gitlab" title="Permalink to this heading">¶</a></h2>
+<p>To uninstall Gitlab, run following command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>helm<span class="w"> </span>uninstall<span class="w"> </span>gitlab<span class="w"> </span>-n<span class="w"> </span>gitlab
+</code></pre></div>
+</div>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">¶</a></h2>
+<h3 id="error-code-on-web-ui-after-login">422 error code on web UI after login<a class="headerlink" href="#error-code-on-web-ui-after-login" title="Permalink to this heading">¶</a></h3>
+<p>After clicking “Sign in”, instead of being guided to Gitlab home page, one sees <code class="docutils literal notranslate"><span class="pre">422</span> <span class="pre">The</span> <span class="pre">change</span> <span class="pre">you</span> <span class="pre">requested</span> <span class="pre">was</span> <span class="pre">rejected</span></code> error. Below
+are some possible reasons:</p>
+<ul class="simple">
+<li><p>Time zone and clock of your deployed Gitlab is inconsistent with your machine (local or virtual machine, depending on which one you have used to deploy Gitlab). This would cause some cookie problems. Check your machine’s time zone (using <code class="docutils literal notranslate"><span class="pre">date</span></code> command, for example), and use <code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">global.time_zone=&lt;your_machine_timezone&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">install</span></code> step.</p></li>
+<li><p>Cookie issues. Clear your browser’s cookies.</p></li>
+<li><dl class="simple">
+<dt>External IP is not set properly.</dt><dd><ul>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">[microk8s]</span> <span class="pre">kubectl</span> <span class="pre">get</span> <span class="pre">svc</span> <span class="pre">-n</span> <span class="pre">default</span></code> to make sure the Gitlab ingress controller has a valid external IP allocated. If its external IP is in “pending” status, you should use <code class="docutils literal notranslate"><span class="pre">[microk8s]</span> <span class="pre">kubectl</span> <span class="pre">logs</span></code>, <code class="docutils literal notranslate"><span class="pre">describe</span></code>, or <code class="docutils literal notranslate"><span class="pre">get</span> <span class="pre">-o</span> <span class="pre">yaml</span></code> to see if there is any problem in IP allocation.</p></li>
+<li><p>The external IP you configured for Gitlab may not be in the valid range.</p></li>
+<li><p>The external IP you configured for Gitlab may have already been used by other deployed apps.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">http</span></code> and <code class="docutils literal notranslate"><span class="pre">https</span></code> issues. You should use <code class="docutils literal notranslate"><span class="pre">https</span></code> instead of <code class="docutils literal notranslate"><span class="pre">https</span></code>.</p></li>
+<li><p>Domain issues. In some tutorials, you may see domain <code class="docutils literal notranslate"><span class="pre">example.com</span></code>, <code class="docutils literal notranslate"><span class="pre">xip.io</span></code>, etc. It may depend on your environment and network configurations. In my case, the working version is <code class="docutils literal notranslate"><span class="pre">&lt;externalIP&gt;.nip.io</span></code>. And to access Gitlab on web UI, the one to be used would be <code class="docutils literal notranslate"><span class="pre">https://gitlab.&lt;externalIP&gt;.nip.io:443</span></code>.</p></li>
+</ul>
+<h3 id="kubernetes-cluster-unreachable">Kubernetes cluster unreachable<a class="headerlink" href="#kubernetes-cluster-unreachable" title="Permalink to this heading">¶</a></h3>
+<p>You may encounter following error after running <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">install</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>Error:<span class="w"> </span>Kubernetes<span class="w"> </span>cluster<span class="w"> </span>unreachable:<span class="w"> </span>Get<span class="w"> </span><span class="s2">&quot;http://localhost:8080/version?timeout=32s&quot;</span>:<span class="w"> </span>dial<span class="w"> </span>tcp<span class="w"> </span><span class="m">127</span>.0.0.1:8080:<span class="w"> </span>connect:<span class="w"> </span>connection<span class="w"> </span>refused
+</code></pre></div>
+</div>
+<p>If this is your case, first run command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span class="o">[</span>microk8s<span class="o">]</span><span class="w"> </span>kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--raw<span class="w"> </span>&gt;<span class="w"> </span>~/.kube/config
+</code></pre></div>
+</div>
+<p>And then redo the <code class="docutils literal notranslate"><span class="pre">helm</span> <span class="pre">install</span></code> command.</p>
+<h3 id="server-certificates-verification-failed">Server certificates verification failed<a class="headerlink" href="#server-certificates-verification-failed" title="Permalink to this heading">¶</a></h3>
+<p>You may meet following error while trying to clone/pull projects</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code>fatal:<span class="w"> </span>unable<span class="w"> </span>to<span class="w"> </span>access<span class="w"> </span><span class="s1">&#39;https://gitlab.10.64.140.46.nip.io/xxxxx/xxxxxx.git/&#39;</span>:<span class="w"> </span>server<span class="w"> </span>certificate<span class="w"> </span>verification<span class="w"> </span>failed.<span class="w"> </span>CAfile:<span class="w"> </span>none<span class="w"> </span>CRLfile:<span class="w"> </span>none
+</code></pre></div>
+</div>
+<p>Make sure you are cloning the project with <strong>SSH</strong>, instead of HTTPS. Refer to section <a class="reference internal" href="#setup-ssh-key"><span class="std std-ref">Setup SSH key for projects cloning and pulling</span></a> for how to setup SSH keys and
+clone projects with SSH.</p>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Overview" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Overview
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="identity.html" class="md-footer__link md-footer__link--next" aria-label="Next: Identity Providers (OIDC)" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Identity Providers (OIDC)
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023, Elements of AI.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    6.1.3.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.sections", "navigation.top", "search.share"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.cea6a0c1d5b0618cf.min.js"></script>
+    
+  </body>
+</html>
