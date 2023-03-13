@@ -36,6 +36,7 @@ Docs
     :hidden:
 
     install/index
+    install/tkgs
     install/ubuntu
 
 .. toctree::
